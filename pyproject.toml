@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "forecastbench-sim-paper"
+version = "0.3.0"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["fbsim-benchmark==0.3.0", "fbsim-core==0.1.0", "numpy==2.2.6", "scipy==1.15.3", "matplotlib==3.10.3", "pandas==2.3.3", "json5==0.14.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["assets/**/*"]
+
+[tool.setuptools.data-files]
+"share/forecastbench-sim-paper" = ["docs/ATTRIBUTION.md", "docs/SOURCE_MAPPING.json", "docs/BOUNDARIES.md", "docs/MANUSCRIPT_STATUS.md", "docs/MIGRATION_GAPS.md"]

@@ -1,0 +1,17 @@
+{
+  "distribution": "fbsim-benchmark",
+  "version": "0.3.0",
+  "local_commit": "9e016b76f14f98c496da513c5c8aca1c2db535cd",
+  "pandemic_scoring_sha256": "59060b38dd678faa6fb955648d59757daf7469bb3c5382490f5ad7f6a651c65a",
+  "remote": "https://github.com/forecastingresearch/forecastbench-sim",
+  "scoring_hashes": {
+    "pandemic.py": "59060b38dd678faa6fb955648d59757daf7469bb3c5382490f5ad7f6a651c65a",
+    "micropolis.py": "d7ec7285e6ec74989df02c75abb8076410c650633825ae209064a487b61b9046",
+    "__init__.py": "8c295d59aa2db3b4cdc4d85185b38f53bbfe58257e860352a71013bdd83300d5",
+    "freeciv.py": "66c3cbaaa3921cadbc6c32d72bfb24a9bb4e30792db51a1cbd02e27538cc3942"
+  },
+  "package_path": "packages/fbsim-benchmark",
+  "core_distribution": "fbsim-core",
+  "core_version": "0.1.0",
+  "tree": "2a247202decd439fd6a6ffeb7daeefa9840843f2"
+}

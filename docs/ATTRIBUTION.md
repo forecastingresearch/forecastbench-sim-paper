@@ -1,0 +1,12 @@
+# License and attribution
+
+This source export is distributed under GPL-3.0-only; see LICENSE. Preserve existing source headers and notices. Dependencies retain their respective licenses. This grant does not cover the external private data, raw provider responses, simulator engines or manuscript assets.
+
+- Micropolis reporting/support derives from Fabio Rocha's source at 8c70972b698f079d54b8a2255c81fbefc55e7d99. The source root contains the preserved GPLv3 text.
+- FreeCiv reporting derives from Jaeho Lee's source at 4e35dd20ebc64dbaec28839fafcb88561664e3e1. The source root contains the same GPLv3 text. Neither source tree contains a competing nested license for the extracted code.
+- Starsim and shared paper analysis derive from Nick Merrill's paper analysis and the preserved f214afe3 snapshot. On 2026-09-24 the author expressly authorized the remaining paper-specific analysis/plotting code under the same GPL as ForecastBench-Sim, retaining third-party licenses and notices. Earlier permission also covered the separately extracted Starsim parsing/scoring routines. No broader data rights are implied.
+- Packaging, cached-route wrappers, explicit path changes and disabled provider access were introduced during migration. Numerical Starsim/Micropolis scorers are imported from the separately pinned benchmark rather than copied here.
+
+SOURCE_MAPPING.json retains the available original file hashes and migration transformations. A production-setting comment in the Starsim roster loader was removed for the public export; its executable AST is unchanged. Other scientific Python source remains byte-identical to the reviewed paper home. Original source and history remain privately preserved; no original history is rewritten.
+
+The inherited GPL text has SHA256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903. Historical path names in source mappings identify provenance, not publicly available data bundles.

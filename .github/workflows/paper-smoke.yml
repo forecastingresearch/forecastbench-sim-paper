@@ -1,0 +1,30 @@
+name: Paper installed smoke tests
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  public-code:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: forecastingresearch/forecastbench-sim
+          ref: 9e016b76f14f98c496da513c5c8aca1c2db535cd
+          path: benchmark-source
+      - uses: astral-sh/setup-uv@v6
+      - run: uv python install ${{ matrix.python }}
+      - run: uv venv --python ${{ matrix.python }} .venv
+      - run: uv run --no-project --python .venv/bin/python benchmark-source/packages/fbsim-benchmark/tools/build_wheels.py --output dist/wheels
+      - run: uv build --no-sources --wheel --python .venv/bin/python --out-dir dist/wheels .
+      - run: uv pip install --python .venv/bin/python --find-links dist/wheels --constraint requirements-observed.txt 'fbsim-core==0.1.0' 'fbsim-benchmark==0.3.0' 'forecastbench-sim-paper==0.3.0' -r requirements-test.txt
+      - run: uv pip check --python .venv/bin/python
+      - run: .venv/bin/python -m fbsim_paper smoke
+      - run: .venv/bin/python -m pytest -q tests
+      # Restricted cached reproduction inputs are deliberately unavailable to hosted CI.

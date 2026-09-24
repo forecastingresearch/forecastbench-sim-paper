@@ -1,0 +1,87 @@
+{
+  "schema_version": "1",
+  "format_note": "JSON is valid YAML 1.2",
+  "default": "smoke",
+  "environment": "README.md and docs/ENVIRONMENT.md",
+  "workflows": [
+    {
+      "id": "smoke",
+      "command": "python -m fbsim_paper smoke",
+      "inputs": "synthetic fixture/imports only",
+      "outputs": "stdout JSON",
+      "schema_version": "1",
+      "access": "public synthetic inputs",
+      "runtime": "under 5 seconds expected",
+      "cost_usd": 0,
+      "network": false,
+      "side_effects": "none beyond Python import caches",
+      "production": false
+    },
+    {
+      "id": "tests",
+      "command": "python -m pytest -q tests",
+      "inputs": "synthetic test fixtures",
+      "outputs": "test log",
+      "schema_version": "1",
+      "access": "public synthetic inputs",
+      "runtime": "under 10 seconds expected",
+      "cost_usd": 0,
+      "network": false,
+      "side_effects": "temporary test directories",
+      "production": false
+    },
+    {
+      "id": "validate",
+      "command": "python -m fbsim_paper validate --data-root \"$DATA_ROOT\"",
+      "inputs": "external private data manifest and hashes",
+      "outputs": "validation JSON",
+      "schema_version": "1",
+      "access": "public code; restricted inputs required",
+      "runtime": "seconds; scales with input bytes",
+      "cost_usd": 0,
+      "network": false,
+      "side_effects": "none",
+      "production": false
+    },
+    {
+      "id": "cached-reproduction",
+      "command": "python -m fbsim_paper reproduce --data-root \"$DATA_ROOT\" --output \"$NEW_OUTPUT\"",
+      "inputs": "f214afe3 snapshot, retained calls, accepted fixed-state production/rescore artifacts",
+      "outputs": "disposable paper/analysis tree, regenerated scores/figures, verification.json",
+      "schema_version": "legacy preserved + manifest v1",
+      "access": "public code; restricted inputs required",
+      "runtime": "approximately minutes; measured run recorded in verification",
+      "cost_usd": 0,
+      "network": false,
+      "side_effects": "creates a new output directory only",
+      "production": false
+    },
+    {
+      "id": "cached-freeciv",
+      "command": "python -m fbsim_paper reproduce-freeciv --data-root \"$FBSIM_DATA_ROOT\" --output \"$NEW_OUTPUT\"",
+      "inputs": "manifests/cached-worlds-20260924.json and frozen paper snapshot",
+      "outputs": "disposable paper outputs, run.log, verification.json",
+      "schema_version": "legacy preserved + manifest v1",
+      "access": "public code; restricted inputs required",
+      "runtime": "seconds to several minutes; no engine runs",
+      "cost_usd": 0,
+      "network": false,
+      "side_effects": "new output directory only",
+      "production": false
+    },
+    {
+      "id": "cached-micropolis",
+      "command": "python -m fbsim_paper reproduce-micropolis --data-root \"$FBSIM_DATA_ROOT\" --output \"$NEW_OUTPUT\"",
+      "inputs": "manifests/cached-worlds-20260924.json and frozen paper snapshot",
+      "outputs": "disposable paper outputs, run.log, verification.json",
+      "schema_version": "legacy preserved + manifest v1",
+      "access": "public code; restricted inputs required",
+      "runtime": "seconds to several minutes; no engine runs",
+      "cost_usd": 0,
+      "network": false,
+      "side_effects": "new output directory only",
+      "production": false
+    }
+  ],
+  "production_replay": "not exposed; separate explicit authorization, engine dependencies and private configs required"
+}

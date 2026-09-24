@@ -1,0 +1,1224 @@
+#!/usr/bin/env -S uv run python3
+"""Gather the article's data: one long CSV per eval, under data/micropolis/paper/.
+
+The scoring half of the paper pipeline. Reads the two evals' gathered datasets
+and the ground truth, scores every forecast with the reports' own scoring
+functions, and writes one row per (model, question) — the grain the scores are
+actually computed at, not a per-model mean:
+
+- binary_forecasts.csv: model, question, section (the paper's question set,
+  by the instance's ground-truth P(Yes): see question_set), horizon, the
+  forecast, that p, and the Brier, excess Brier and excess bits.
+- continuous_forecasts.csv: model, question, city, metric, horizon, the raw
+  CRPS and the excess CRPS. Both are unnormalized: the paper divides by the
+  city's own scale, which is a join analyze_paper.py does against the file
+  below, so the scale can be changed without re-scoring.
+- city_metric_scales.csv: one row per city of the continuous config, the mean
+  each metric took over the turns up to the first snapshot, floored at a
+  per-metric minimum so a quiet city cannot give a near-zero scale.
+- model_scores.csv, copied verbatim from the package's datafiles/, so the
+  paper's directory carries the ECI and ForecastBench numbers its figures plot
+  against rather than depending on the repo's copy at drawing time.
+- model_usage.csv: what each model's calls cost, per eval, from the usage
+  sidecars beside the cached responses. The paper reports the run's cost per
+  model and per question kind, and neither is recoverable from the forecast
+  rows.
+- batching_forecasts.csv and batching_runs.csv: the questions-per-prompt
+  ablation (configs/batching/), scored the same way, one row per (setting,
+  model, question), plus per (setting, model) what was asked, parsed and paid.
+- variants_forecasts.csv, variants_runs.csv and variants_settings.csv: the
+  prompt variants (configs/prompt variants/), each scored exactly as the main
+  run's continuous rows are, one row per (variant, model, question); per
+  (variant, model) what was asked, parsed and paid; and per variant what its
+  config changed and which variant it is compared against.
+- knowledge_answers.csv and knowledge_runs.csv: the knowledge test, one row per
+  (model, statement) with the statement's topic, difficulty, truth and the
+  model's parsed answer, and per model what its calls cost. Beside them the
+  prompts as sent: knowledge_prompt_preamble.txt and the numbered statement
+  list of each half, knowledge_prompt_1.txt and knowledge_prompt_2.txt.
+- continuous_replays.tar.gz: the ground-truth file of each of the continuous
+  config's snapshots, as extract_ground_truth.py wrote it, in one archive.
+- gpt5_check_forecasts.csv: the one-question-per-prompt rerun of GPT-5 mini in
+  its own data directory (configs/gpt5-check-1q.json5), with each response's
+  finish reason, for the appendix's account of that model's failures. Read by
+  path from that directory, since a process works in one data directory and
+  this one is the paper's.
+
+Model names are written as model *ids*: this world's ":suffix" (":loeff", the
+reasoning effort a run was gathered under) is dropped, since the paper reports
+one run per model and the leaderboards score the model rather than the effort
+setting. The suffix stays the canonical id everywhere upstream — configs, the
+response cache, data.json — so it is stripped here, at the boundary, and not
+before.
+
+Aggregates are deliberately not written here: every mean, correlation and
+bootstrap interval the paper reports is recoverable from these rows, and a
+pre-aggregated file beside them would be a second source of truth to keep in
+step. The reports' own binary_scores.csv and continuous_scores.csv still live
+beside the reports, under the eval labels.
+
+Unparsed forecasts are dropped rather than written as nan: a row here means a
+score, and the counts of what was prompted against what parsed belong to the
+reports. Both datasets are required — the paper's data is all-or-nothing — and
+there is no --incomplete, since a ragged selection makes per-model figures
+cover different question sets.
+
+scripts/analyze_paper.py draws the figures from this directory alone.
+
+Usage:
+    scripts/gather_paper_data.py
+    scripts/gather_paper_data.py --binary-config configs/binary-testing.json5
+    scripts/gather_paper_data.py --continuous-config configs/prompt-a.json5
+"""
+
+import argparse
+import csv
+import gzip
+import json
+import shutil
+import sys
+import tarfile
+from pathlib import Path
+
+import micropolis_world.module_globals as g
+from micropolis_world import usage_report as ur
+from micropolis_world.binary_eval import PATHS as BINARY_PATHS
+from micropolis_world.binary_eval import (
+    data_path as binary_data_path,
+)
+from micropolis_world.binary_eval import (
+    load_dataset_binary,
+)
+from micropolis_world.binary_questions import build_corpus_binary
+from micropolis_world.config import CONFIG_DIR, Config, ConfigError, main_with_config
+from micropolis_world.continuous_eval import (
+    PATHS as CONTINUOUS_PATHS,
+)
+from micropolis_world.continuous_eval import (
+    DatasetError,
+    Normalizer,
+    ResponseId,
+    attach_outcomes,
+    data_path,
+    group_into_batches,
+    load_dataset,
+    prompt_hash,
+    score_forecasts,
+    select_for_config,
+)
+from micropolis_world.ground_truth import load_truths, output_path
+from micropolis_world.messages import error, warn
+from micropolis_world.model_ids import to_model_id
+from micropolis_world.model_scores import SCORES_PATH
+from micropolis_world.scenarios import (
+    build_batch_prompt_binary,
+    build_batch_prompt_continuous,
+    build_corpus,
+    get_base_scenarios,
+)
+
+# Imported rather than reimplemented so the paper's scores are the reports'
+# scores: the same Brier/excess/bits, the same CRPS. The question sets are
+# not the reports' (see question_set).
+sys.path.insert(0, str(Path(__file__).parent))
+from analyze_binary import (
+    MID_RANGE,
+    TAIL,
+    TURNS_PER_YEAR,
+    score_forecasts_binary,
+    write_csv,
+)
+from analyze_continuous import UNNORMALIZED_METRICS, forecast_questions, is_forecast
+from get_city_scales import METRICS as SCALE_METRICS
+from get_city_scales import SCALES_START_TURN, paper_scales
+
+DEFAULT_CONTINUOUS_CONFIG_PATH = CONFIG_DIR / "continuous.json5"
+DEFAULT_BINARY_CONFIG_PATH = CONFIG_DIR / "binary.json5"
+
+# The paper's own directory, flat: the figures are cited from the article by a
+# fixed path, so the config's label picks which data.json is read, not where
+# these land. OUT_DIR is the default world's, for analyze_paper.py, which
+# loads no config; the gather writes to paper_dir(), under whatever data
+# directory the configs it loaded fixed.
+PAPER_SUBDIR = "paper"
+OUT_DIR = g.DATA_DIR / PAPER_SUBDIR
+
+
+def paper_dir() -> Path:
+    return g.DATA_DIR / PAPER_SUBDIR
+
+
+# The paper's question sets, FreeCiv's definitions: an instance goes by its
+# ground-truth q to the tail (0 < q <= 5%) or the mid-range (5% < q < 95%),
+# and the two ends, zero (q = 0) and top (q >= 95%), are left out of both.
+# The reports keep analyze_binary's single q < 5% split.
+TAIL_MAX = 0.05
+TOP_MIN = 0.95
+ZERO, TOP = "zero", "top"
+
+
+def question_set(q: float) -> str:
+    """The paper's set for an instance with ground-truth probability q."""
+    if q == 0:
+        return ZERO
+    if q <= TAIL_MAX:
+        return TAIL
+    return MID_RANGE if q < TOP_MIN else TOP
+
+
+# The paper normalizes downstream, per city and metric, so nothing is divided
+# here: score_forecasts still takes a Normalizer, and this one has no scale for
+# any question, which leaves its normalized columns empty. They are not
+# written. Scoring stays the reports' own; only the denominator moves.
+RAW = Normalizer(
+    mode="none",
+    ratio="CRPS",
+    detail="nothing — the paper's rows are unnormalized",
+    scale=lambda c: None,
+)
+
+BINARY_CSV_NAME = "binary_forecasts.csv"
+BINARY_COLUMNS = [
+    "model",
+    "question_id",
+    "qid",
+    "section",
+    "horizon",
+    "forecast",
+    "real_prob",
+    "brier",
+    "excess_brier",
+    "excess_bits",
+]
+
+# Copied beside the scores rather than read from the package when the figures
+# are drawn: the paper's directory should hold everything its numbers rest on,
+# and the repo's copy will keep gaining rows as leaderboards publish.
+MODEL_SCORES_CSV_NAME = "model_scores.csv"
+
+SCALES_CSV_NAME = "city_metric_scales.csv"
+SCALES_COLUMNS = ["city", *SCALE_METRICS]
+
+# Prompted against parsed, per model and eval. The forecast CSVs hold only
+# scored rows, so a parse rate is not recoverable from them: a model that
+# returned nothing for a question leaves no row at all. The paper quotes the
+# worst model's parse rate, which is exactly the number that vanishes.
+COVERAGE_CSV_NAME = "model_coverage.csv"
+COVERAGE_COLUMNS = ["model", "eval", "nforecasts", "nvalid"]
+
+# What the run cost, per model and eval, from the usage sidecar beside each
+# cached response. The paper's cost tables report this and nothing else can:
+# a forecast row records a score, not the call that produced it. Collected the
+# way analyze_usage.py collects it — by rebuilding each config's batch prompts,
+# since a sidecar is named by its prompt's hash — so the two agree by
+# construction.
+USAGE_CSV_NAME = "model_usage.csv"
+USAGE_COLUMNS = [
+    "model",
+    "eval",
+    "provider",
+    "ncalls",
+    "nprompts",
+    "questions_per_prompt",
+    "input_tokens",
+    "output_tokens",
+    "reasoning_tokens",
+    "cost_usd",
+    "latency_ms_sum",
+    "latency_ms_p50",
+]
+
+# The questions-per-prompt ablation: the binary set on five cities and eight
+# models, asked once per cap on the number of questions a prompt may carry.
+# Scored with the same functions as the main run, so its rows are the paper's
+# binary rows with the setting prepended. `cap` is the config's value; the
+# batcher splits a snapshot's questions evenly under it, so the prompts a cap
+# of 8 produces carry 7 or 8 questions, and questions_per_prompt is what they
+# actually carried on average — the number the article's axis shows.
+BATCHING_CONFIG_GLOB = "batching/binary-subset-*q.json5"
+BATCHING_CSV_NAME = "batching_forecasts.csv"
+BATCHING_COLUMNS = [
+    "setting",
+    "cap",
+    "questions_per_prompt",
+    "prompts_per_model",
+    *BINARY_COLUMNS,
+]
+BATCHING_RUNS_CSV_NAME = "batching_runs.csv"
+BATCHING_RUNS_COLUMNS = [
+    "setting",
+    "cap",
+    "questions_per_prompt",
+    "prompts_per_model",
+    "model",
+    "provider",
+    "nforecasts",
+    "nvalid",
+    "ncalls",
+    "input_tokens",
+    "output_tokens",
+    "reasoning_tokens",
+    "cost_usd",
+    "latency_ms_sum",
+    "latency_ms_p50",
+]
+
+# The GPT-5 mini rerun at one question per prompt. It lives in its own data
+# directory (the config's data_dir) precisely so its prompts missed the main
+# cache, and a process works in one data directory, so it is read by path
+# from analyze_binary.py's results.csv there rather than through Config.
+# Unparsed forecasts are KEPT here, as empty cells, because the count of them
+# is one of the things the appendix reports about this run.
+RECHECK_DIR_NAME = "micropolis_gpt5_check"
+RECHECK_LABEL = "1q"
+RECHECK_CSV_NAME = "gpt5_check_forecasts.csv"
+RECHECK_COLUMNS = [
+    "model",
+    "question_id",
+    "qid",
+    "section",
+    "horizon",
+    "forecast",
+    "real_prob",
+    "finish_reason",
+    "output_tokens",
+    "has_block",
+]
+ANSWER_BLOCK_MARKER = "<<<PROBABILITIES>>>"
+
+# The prompt variants of appendix D: one continuous config per variant under
+# configs/prompt variants/, each the main run's settings but for the lever it
+# varies. Every variant is scored exactly as the main run is (continuous_rows)
+# and costed the same way (usage_rows). VARIANT_ORDER is the order the
+# appendix lists them in — the year-5/10 group from the least history to the
+# most, then the preamble, the labels and the batch size, then the later
+# snapshots — and VARIANT_PARENT names, for each, the variant it differs from
+# by one lever, which is what the appendix compares it against. A config not
+# named here follows the named ones, alphabetically, with no parent.
+VARIANTS_CONFIG_GLOB = "prompt variants/prompt-*.json5"
+VARIANT_ORDER = [
+    "snapshot-only",
+    "last-2y",
+    "yfreq",
+    "long",
+    "preamble2",
+    "semantic",
+    "smallbatch",
+    "20yhist",
+    "semlonger",
+    "numlonger",
+    "100yhist",
+]
+VARIANT_PARENT = {
+    "snapshot-only": "long",
+    "last-2y": "yfreq",
+    "yfreq": "long",
+    "preamble2": "long",
+    "semantic": "preamble2",
+    "smallbatch": "preamble2",
+    "semlonger": "semantic",
+    "numlonger": "semlonger",
+    "20yhist": "numlonger",
+    "100yhist": "numlonger",
+}
+VARIANT_LABEL_PREFIX = "prompt-"
+VARIANTS_CSV_NAME = "variants_forecasts.csv"
+VARIANTS_RUNS_CSV_NAME = "variants_runs.csv"
+VARIANTS_SETTINGS_CSV_NAME = "variants_settings.csv"
+VARIANTS_RUNS_COLUMNS = [
+    "variant",
+    "model",
+    "provider",
+    "nforecasts",
+    "nvalid",
+    "ncalls",
+    "input_tokens",
+    "output_tokens",
+    "reasoning_tokens",
+    "cost_usd",
+    "latency_ms_sum",
+    "latency_ms_p50",
+]
+VARIANTS_SETTINGS_COLUMNS = [
+    "variant",
+    "parent",
+    "is_main",
+    "snapshot_turns",
+    "snapshot_years",
+    "history",
+    "preamble",
+    "tagging",
+    "sort",
+    "questions_per_prompt",
+    "prompts_per_model",
+    "report_effectiveness",
+]
+# The knowledge test (appendix D): one row per (model, statement) with the
+# statement's tags and the model's parsed answer, so the article can score any
+# subset and correlate it with anything else it has per model; and what each
+# model's calls cost. Read from the knowledge eval's own cache through its
+# runner, which is the only code that knows the prompts' hashes.
+KNOWLEDGE_CONFIG_PATH = CONFIG_DIR / "knowledge_eval.json5"
+KNOWLEDGE_CSV_NAME = "knowledge_answers.csv"
+KNOWLEDGE_COLUMNS = [
+    "model",
+    "position",
+    "half",
+    "topic",
+    "difficulty",
+    "is_true",
+    "is_honeypot",
+    "pair",
+    "answer",
+    "correct",
+]
+# The prompts themselves, as sent: the preamble every prompt opens with and the
+# numbered statement list of each half, so the article can reproduce them.
+KNOWLEDGE_PREAMBLE_NAME = "knowledge_prompt_preamble.txt"
+KNOWLEDGE_PROMPT_NAME = "knowledge_prompt_{half}.txt"
+KNOWLEDGE_RUNS_CSV_NAME = "knowledge_runs.csv"
+
+# The replays behind every continuous score: one ground-truth file per
+# snapshot, archived under this directory name.
+REPLAYS_ARCHIVE_NAME = "continuous_replays.tar.gz"
+REPLAYS_ARCHIVE_DIR = "continuous_replays"
+KNOWLEDGE_RUNS_COLUMNS = [
+    "model",
+    "provider",
+    "ncalls",
+    "input_tokens",
+    "output_tokens",
+    "reasoning_tokens",
+    "cost_usd",
+    "latency_ms_sum",
+    "latency_ms_p50",
+]
+
+CONTINUOUS_CSV_NAME = "continuous_forecasts.csv"
+CONTINUOUS_COLUMNS = [
+    "model",
+    "question_id",
+    "city",
+    "metric",
+    "horizon",
+    "crps",
+    "excess_crps",
+]
+
+
+def load_config_at(path: Path | str) -> Config:
+    """Load one config by path, exiting with a message rather than a traceback."""
+    try:
+        return Config.load(path)
+    except ConfigError as e:
+        error(str(e))
+        sys.exit(1)
+
+
+def years(turns: int) -> str:
+    """A horizon in turns as the years the CSV reports it in."""
+    return f"{turns / TURNS_PER_YEAR:g}y"
+
+
+def check_no_suffix_collisions(models: list[str]) -> None:
+    """Fail if dropping the ":suffix" would merge two of the run's models.
+
+    The paper names models by model id, so two slugs of one base model — "o3"
+    and "o3:loeff" gathered together — would land in the CSV under one name and
+    have their forecasts averaged as if they were one model. That is a config
+    the paper cannot report as it stands, so it is an error here rather than a
+    silent merge downstream.
+    """
+    merged: dict[str, list[str]] = {}
+    for slug in models:
+        merged.setdefault(to_model_id(slug), []).append(slug)
+    clashes = {mid: slugs for mid, slugs in merged.items() if len(slugs) > 1}
+    if clashes:
+        sys.exit(
+            "[error] dropping the ':suffix' would merge these models:\n"
+            + "\n".join(f"  {mid}: {', '.join(s)}" for mid, s in clashes.items())
+            + "\n  the paper names models by model id, so select one variant per"
+            " model (--models, or the config's list)"
+        )
+
+
+def city_of(scenario_id: str) -> str:
+    """The city a scenario id names.
+
+    CitySimulation builds it as {city}_{disasters flag}_seed{n}, and a city
+    name can itself hold underscores ("med_isle"), so the suffixes are stripped
+    rather than the first segment taken.
+    """
+    head = scenario_id.rsplit("_seed", 1)[0]
+    return head.removesuffix("_disasters").removesuffix("_nodisasters")
+
+
+def binary_rows(cfg: Config) -> tuple[list[dict], list[dict]]:
+    """One row per scored binary forecast, plus the per-model coverage rows.
+
+    The section is decided per question *instance* by its ground-truth P(Yes),
+    by question_set, so a qid can be mid-range in one city and tail in
+    another — which is why it is a column here rather than something the
+    plotting script could derive from the qid.
+    """
+    label = cfg.get_label(None)
+    data_file = binary_data_path(label)
+    try:
+        corpus, responses, models = load_dataset_binary(data_file)
+        corpus, responses, models = select_for_config(
+            corpus,
+            responses,
+            models,
+            cfg,
+            cfg.get_seed(None),
+            rerun_hint="scripts/run_eval_binary.py",
+        )
+        truths = load_truths(corpus)
+    except (FileNotFoundError, DatasetError) as e:
+        sys.exit(f"[error] {e}")
+
+    print(f"binary:     {data_file}")
+    print(f"            {len(corpus)} questions x {len(models)} models")
+    check_no_suffix_collisions(models)
+
+    sections = {
+        c["question_id"]: question_set(truths[c["question_id"]].p) for c in corpus
+    }
+    scored = score_forecasts_binary(corpus, responses, models, truths)
+    rows = [
+        {
+            "model": to_model_id(r["model_id"]),
+            "question_id": r["question_id"],
+            "qid": r["qid"],
+            "section": sections[r["question_id"]],
+            "horizon": years(r["horizon"]),
+            "forecast": r["forecast"],
+            "real_prob": r["truth"].p,
+            "brier": r["brier"],
+            "excess_brier": r["excess_brier"],
+            "excess_bits": r["excess_bits"],
+        }
+        for r in scored
+    ]
+    counts = {
+        s: sum(1 for r in rows if r["section"] == s) for s in set(sections.values())
+    }
+    print(
+        f"            {len(rows)} scored forecasts: "
+        + ", ".join(f"{n} {s}" for s, n in sorted(counts.items()))
+    )
+    coverage = coverage_rows(
+        "binary",
+        corpus,
+        responses,
+        models,
+        {(r["model_id"], r["question_id"]) for r in scored},
+    )
+    return rows, coverage
+
+
+def continuous_rows(cfg: Config) -> tuple[list[dict], list[dict]]:
+    """One row per scored continuous forecast, plus per-model coverage rows.
+
+    The read-off horizon is excluded, as in every pooled figure the reports
+    draw: it asks for a number the snapshot report already prints, so averaging
+    it in with real forecasts flatters every model by the same trick.
+    Unnormalized metrics (city funds) are dropped too — they have no scale, so
+    the paper could not pool them with the rest.
+
+    The city is carried as a column: it is what analyze_paper.py joins the
+    per-city scales on, and the question id encodes it only by convention.
+    """
+    label = cfg.get_label(None)
+    seed = cfg.get_seed(None)
+    data_file = data_path(label)
+    try:
+        corpus, responses, models = load_dataset(data_file)
+        corpus, responses, models = select_for_config(
+            corpus, responses, models, cfg, seed
+        )
+    except (FileNotFoundError, DatasetError) as e:
+        sys.exit(f"[error] {e}")
+
+    print(f"continuous: {data_file}")
+    print(f"            {len(corpus)} questions x {len(models)} models")
+    check_no_suffix_collisions(models)
+
+    scorable = [
+        c for c in forecast_questions(corpus) if c["metric"] not in UNNORMALIZED_METRICS
+    ]
+    try:
+        without_outcomes = attach_outcomes(scorable)
+    except (NotImplementedError, FileNotFoundError) as e:
+        sys.exit(
+            f"[error] {e}\n"
+            "  the excess measure needs the ground truth; run "
+            "scripts/extract_ground_truth.py for this config"
+        )
+    # A metric the scales table has no column for could not be normalized
+    # downstream, and would drop out of the paper's figures there rather than
+    # here, where the corpus is in hand to say so.
+    unscaled = sorted({c["metric"] for c in scorable} - set(SCALE_METRICS))
+    if unscaled:
+        sys.exit(
+            f"[error] {SCALES_CSV_NAME} has no scale for: {', '.join(unscaled)}\n"
+            "  add the metric to get_city_scales.METRICS, or to "
+            "UNNORMALIZED_METRICS to leave it out of the paper"
+        )
+    if without_outcomes:
+        warn(
+            f"{without_outcomes} continuous question(s) have no continuation"
+            " outcomes; their excess columns are empty"
+        )
+
+    cities = {c["question_id"]: city_of(c["scenario_id"]) for c in scorable}
+    scored = score_forecasts(scorable, responses, models, RAW)
+    rows = [
+        {
+            "model": to_model_id(r["model_id"]),
+            "question_id": r["question_id"],
+            "city": cities[r["question_id"]],
+            "metric": r["metric"],
+            "horizon": years(r["horizon"]),
+            # Four decimals: the article prints three of the normalized value,
+            # and full precision doubles the size of every file built on this.
+            "crps": round(r["crps"], 4),
+            "excess_crps": (
+                round(r["excess_crps"], 4) if r["excess_crps"] is not None else None
+            ),
+        }
+        for r in scored
+        # Belt and braces: forecast_questions already removed the read-off.
+        if is_forecast(r["horizon"])
+    ]
+    print(f"            {len(rows)} scored forecasts, unnormalized")
+    # Coverage is counted over the same questions the rows cover, so a parse
+    # rate here is the share of the paper's own question set a model answered.
+    forecasts = [c for c in scorable if is_forecast(c["horizon"])]
+    coverage = coverage_rows(
+        "continuous",
+        forecasts,
+        responses,
+        models,
+        {
+            (r["model_id"], r["question_id"])
+            for r in scored
+            if is_forecast(r["horizon"])
+        },
+    )
+    return rows, coverage
+
+
+def coverage_rows(
+    eval_name: str, corpus: list[dict], responses: dict, models: list[str], scored: set
+) -> list[dict]:
+    """Prompted against parsed, one row per model.
+
+    nforecasts counts the questions a model has a response on record for,
+    parsed or not, and nvalid those whose answer could be read — the reports'
+    own two counts, from the same `responses` mapping they use. Kept apart from
+    the forecast rows because those hold scores, and an unparsed forecast has
+    none; without this the paper could not state a parse rate at all.
+    """
+    rows = []
+    for slug in models:
+        asked = sum(
+            1 for c in corpus if ResponseId(slug, c["question_id"]) in responses
+        )
+        valid = sum(1 for c in corpus if (slug, c["question_id"]) in scored)
+        rows.append(
+            {
+                "model": to_model_id(slug),
+                "eval": eval_name,
+                "nforecasts": asked,
+                "nvalid": valid,
+            }
+        )
+    return rows
+
+
+def prompt_hashes(eval_name: str, cfg: Config) -> dict[str, str]:
+    """The hash of every prompt a config sends, keyed by batch id.
+
+    Rebuilt through the same builders the run scripts use, so this names
+    exactly the cached calls that belong to the config — the derivation
+    analyze_usage.py makes. Two configs with equal hashes sent the very same
+    prompts, which is how a variant is recognized as the main run's own.
+    """
+    seed = cfg.get_seed(None)
+    label = cfg.get_label(None)
+    scenarios = get_base_scenarios(
+        seed=seed, cities=cfg.get_cities(None), disasters=cfg.get_disasters(None)
+    )
+    shape = (
+        scenarios,
+        cfg.get_int_list("snapshot_turns"),
+        cfg.get_int_list("horizons"),
+        cfg.get_int("history_freq"),
+        label,
+        cfg.get_bool_or("snapshot_only_report", False),
+        cfg.get_int_or("history_length", -1),
+        cfg.get_bool_or("report_effectiveness", False),
+        cfg.get_bool_or("censorCityFunds", True),
+    )
+    preamble, epilogue = cfg.get_preamble_path(), cfg.get_epilogue_path()
+    if eval_name == "binary":
+        corpus = build_corpus_binary(*shape, cfg.get_bool_or("report_census", True))
+
+        def build(context, questions):
+            return build_batch_prompt_binary(context, questions, preamble, epilogue)
+    else:
+        corpus = build_corpus(*shape, cfg.get_questions_sort())
+        tagging = cfg.get_question_tagging()
+
+        def build(context, questions):
+            return build_batch_prompt_continuous(
+                context, questions, preamble, epilogue, tagging
+            )
+
+    batches = group_into_batches(corpus, cfg.get_questions_per_prompt())
+    return {
+        bid: prompt_hash(build(qs[0]["context"], qs)) for bid, qs in batches.items()
+    }
+
+
+def usage_rows(eval_name: str, cfg: Config) -> list[dict]:
+    """What each model's calls cost in this eval, one row per model.
+
+    A sidecar's filename carries the hash of the prompt that produced the call,
+    so the prompts are rebuilt (prompt_hashes) to know which stored calls
+    belong to this config rather than to an ablation cached beside them.
+
+    Models with no recorded call are still given a row, at zero: the paper's
+    per-model cost column needs an entry for every model in the panel, and a
+    gap there would read as a missing model rather than a missing sidecar.
+    """
+    paths = BINARY_PATHS if eval_name == "binary" else CONTINUOUS_PATHS
+    per_prompt = cfg.get_questions_per_prompt()
+    hashes = prompt_hashes(eval_name, cfg)
+    models = cfg.get_models(None)
+    check_no_suffix_collisions(models)
+
+    rows = []
+    for slug in models:
+        one = ur.collect_for_batches(
+            hashes, [slug], paths.response_path, paths.usage_path
+        )
+        totals = ur.grand_total(ur.by_provider(one.usages))
+        # The host is per model, not per call, so the one provider that served
+        # it names the column the paper prints; a model somehow split across
+        # providers is reported as such rather than silently taking the first.
+        served = sorted({ur.provider_of(u.model_id) for u in one.usages})
+        rows.append(
+            {
+                "model": to_model_id(slug),
+                "eval": eval_name,
+                "provider": "+".join(served),
+                "ncalls": totals.calls,
+                "nprompts": len(hashes),
+                "questions_per_prompt": per_prompt,
+                "input_tokens": totals.input_tokens,
+                "output_tokens": totals.output_tokens,
+                "reasoning_tokens": totals.reasoning_tokens,
+                "cost_usd": f"{totals.cost_usd:.4f}",
+                # Summed over the model's calls: model time, not wall clock,
+                # since calls run concurrently. The ratio between settings is
+                # what the article uses it for.
+                "latency_ms_sum": f"{sum(totals.latencies):.0f}",
+                "latency_ms_p50": (
+                    f"{totals.latency_percentile(0.5):.0f}" if totals.latencies else ""
+                ),
+            }
+        )
+    total = sum(float(r["cost_usd"]) for r in rows)
+    print(
+        f"usage:      {eval_name}: {sum(r['ncalls'] for r in rows)} calls over "
+        f"{len(rows)} models, ${total:.2f}, {len(hashes)} prompts per model"
+    )
+    return rows
+
+
+def batching_rows(config_paths: list[Path]) -> tuple[list[dict], list[dict]]:
+    """The questions-per-prompt ablation: forecast rows and per-run rows.
+
+    One config per cap. Each is scored exactly as the main run is — the same
+    binary_rows — and its calls are costed exactly as the main run's are, so
+    the ablation's numbers are on the paper's footing rather than a report's.
+    """
+    forecasts, runs = [], []
+    for path in config_paths:
+        cfg = load_config_at(path)
+        label = cfg.get_label(None)
+        rows, coverage = binary_rows(cfg)
+        usage = usage_rows("binary", cfg)
+        prompts = {u["nprompts"] for u in usage}
+        asked = {c["nforecasts"] for c in coverage}
+        if len(prompts) != 1 or len(asked) != 1:
+            sys.exit(
+                f"[error] {path}: models were sent different numbers of prompts"
+                f" ({sorted(prompts)}) or questions ({sorted(asked)})"
+            )
+        nprompts, nasked = prompts.pop(), asked.pop()
+        per_prompt = nasked / nprompts
+        cap = cfg.get_questions_per_prompt()
+        head = {
+            "setting": label,
+            # An unsplit batch (cap -1) carries a snapshot's whole question
+            # set; reported as that size, which is what the setting means.
+            "cap": cap if cap > 0 else round(per_prompt),
+            "questions_per_prompt": f"{per_prompt:.2f}",
+            "prompts_per_model": nprompts,
+        }
+        forecasts += [{**head, **r} for r in rows]
+        by_model = {u["model"]: u for u in usage}
+        for c in coverage:
+            u = by_model[c["model"]]
+            runs.append(
+                {
+                    **head,
+                    "model": c["model"],
+                    "provider": u["provider"],
+                    "nforecasts": c["nforecasts"],
+                    "nvalid": c["nvalid"],
+                    **{
+                        k: u[k]
+                        for k in (
+                            "ncalls",
+                            "input_tokens",
+                            "output_tokens",
+                            "reasoning_tokens",
+                            "cost_usd",
+                            "latency_ms_sum",
+                            "latency_ms_p50",
+                        )
+                    },
+                }
+            )
+        print()
+    return forecasts, runs
+
+
+def variant_name(cfg: Config) -> str:
+    """A variant's name: its label minus the shared prompt- prefix."""
+    return cfg.get_label(None).removeprefix(VARIANT_LABEL_PREFIX)
+
+
+def variant_sort_key(path: Path) -> tuple:
+    name = load_config_at(path).get_label(None).removeprefix(VARIANT_LABEL_PREFIX)
+    return (
+        VARIANT_ORDER.index(name) if name in VARIANT_ORDER else len(VARIANT_ORDER),
+        name,
+    )
+
+
+def preamble_name(cfg: Config) -> str:
+    """The preamble as the appendix names it: 1, 1 (snapshot) or 2b."""
+    path = cfg.get_preamble_path()
+    stem = path.stem if path is not None else "preamble1"
+    name = stem.removeprefix("preamble")
+    if name.endswith("-snapshot"):
+        return f"{name.removesuffix('-snapshot')} (snapshot)"
+    return name
+
+
+def history_description(cfg: Config) -> str:
+    """The report's history table in words: its sampling and any cap."""
+    if cfg.get_bool_or("snapshot_only_report", False):
+        return "none"
+    freq = cfg.get_int("history_freq")
+    length = cfg.get_int_or("history_length", -1)
+    text = f"every {freq} turns"
+    if length > 0:
+        text += f", last {length} rows"
+    return text
+
+
+def variant_settings(
+    cfg: Config, main_hashes: dict[str, str], per_prompt: float, nprompts: int
+) -> dict:
+    """One variants_settings.csv row: what the variant asked and how.
+
+    is_main says whether the variant's prompts are, hash for hash, the main
+    run's own — it then gathered from that run's cache and cost nothing new.
+    """
+    name = variant_name(cfg)
+    turns = cfg.get_int_list("snapshot_turns")
+    return {
+        "variant": name,
+        "parent": VARIANT_PARENT.get(name, ""),
+        "is_main": int(prompt_hashes("continuous", cfg) == main_hashes),
+        "snapshot_turns": " ".join(str(t) for t in turns),
+        "snapshot_years": ", ".join(f"{t / TURNS_PER_YEAR:.0f}" for t in turns),
+        "history": history_description(cfg),
+        "preamble": preamble_name(cfg),
+        "tagging": cfg.get_question_tagging(),
+        "sort": cfg.get_questions_sort(),
+        "questions_per_prompt": f"{per_prompt:g}",
+        "prompts_per_model": nprompts,
+        "report_effectiveness": int(cfg.get_bool_or("report_effectiveness", False)),
+    }
+
+
+def variants_rows(
+    config_paths: list[Path], main_cfg: Config
+) -> tuple[list[dict], list[dict], list[dict]]:
+    """The prompt variants: forecast rows, per-run rows and settings rows.
+
+    One config per variant, in VARIANT_ORDER. Each is scored exactly as the
+    main run is — the same continuous_rows, so the same excess CRPS the
+    article divides by the city scales — and costed exactly as the main
+    run's calls are.
+    """
+    forecasts, runs, settings = [], [], []
+    main_hashes = prompt_hashes("continuous", main_cfg)
+    for path in sorted(config_paths, key=variant_sort_key):
+        cfg = load_config_at(path)
+        name = variant_name(cfg)
+        rows, coverage = continuous_rows(cfg)
+        usage = usage_rows("continuous", cfg)
+        prompts = {u["nprompts"] for u in usage}
+        asked = {c["nforecasts"] for c in coverage}
+        if len(prompts) != 1 or len(asked) != 1:
+            sys.exit(
+                f"[error] {path}: models were sent different numbers of prompts"
+                f" ({sorted(prompts)}) or questions ({sorted(asked)})"
+            )
+        nprompts, nasked = prompts.pop(), asked.pop()
+        settings.append(variant_settings(cfg, main_hashes, nasked / nprompts, nprompts))
+        forecasts += [{"variant": name, **r} for r in rows]
+        by_model = {u["model"]: u for u in usage}
+        for c in coverage:
+            u = by_model[c["model"]]
+            runs.append(
+                {
+                    "variant": name,
+                    "model": c["model"],
+                    "provider": u["provider"],
+                    "nforecasts": c["nforecasts"],
+                    "nvalid": c["nvalid"],
+                    **{
+                        k: u[k]
+                        for k in (
+                            "ncalls",
+                            "input_tokens",
+                            "output_tokens",
+                            "reasoning_tokens",
+                            "cost_usd",
+                            "latency_ms_sum",
+                            "latency_ms_p50",
+                        )
+                    },
+                }
+            )
+        print()
+    return forecasts, runs, settings
+
+
+def knowledge_prompt_files(out: Path) -> list[Path]:
+    """Write the preamble and each half's numbered statements to `out`."""
+    from micropolis_world.knowledge_eval.runner import PREAMBLE_PATH, build_prompts
+
+    out.mkdir(parents=True, exist_ok=True)
+    preamble = PREAMBLE_PATH.read_text(encoding="utf-8")
+    written = [out / KNOWLEDGE_PREAMBLE_NAME]
+    written[0].write_text(preamble, encoding="utf-8")
+    for prompt in build_prompts():
+        assert prompt.text.startswith(preamble)
+        path = out / KNOWLEDGE_PROMPT_NAME.format(half=prompt.index + 1)
+        path.write_text(prompt.text[len(preamble) :], encoding="utf-8")
+        written.append(path)
+    return written
+
+
+def knowledge_rows(cfg: Config) -> tuple[list[dict], list[dict]]:
+    """The knowledge test: one row per (model, statement), and per-model costs.
+
+    `correct` is 1 or 0 for an answered statement and empty for Unknown, so a
+    subset's score is (sum(correct) - 2 * count(correct == 0)) / n, the rule
+    the prompt states; an unparseable answer counts as wrong, as it says.
+    A configured model with a half missing from the cache is left out with a
+    warning: its score would be over a different set.
+    """
+    from statistics import median
+
+    from micropolis_world.knowledge_eval.runner import (
+        Answer,
+        build_prompts,
+        get_cached_answers,
+        load_usage,
+        model_slug,
+        statements,
+    )
+
+    prompts = build_prompts()
+    half_of = {pos: p.index for p in prompts for pos in p.positions}
+    cached = get_cached_answers()
+    answers, runs = [], []
+    for slug in cfg.get_models(None):
+        got = cached.get(model_slug(slug))
+        if got is None:
+            warn(f"knowledge: no complete cached answers for {slug}; left out")
+            continue
+        model = to_model_id(slug)
+        for pos, (s, a) in enumerate(zip(statements, got, strict=True)):
+            if a is Answer.UNKNOWN:
+                correct = ""
+            else:
+                correct = int(
+                    a is not Answer.UNPARSEABLE and (a is Answer.TRUE) == s.is_true
+                )
+            answers.append(
+                {
+                    "model": model,
+                    "position": pos,
+                    "half": half_of[pos],
+                    "topic": s.topic,
+                    "difficulty": s.difficulty,
+                    "is_true": int(s.is_true),
+                    "is_honeypot": int(s.is_honeypot),
+                    "pair": "" if s.pair is None else s.pair,
+                    "answer": a.value,
+                    "correct": correct,
+                }
+            )
+        usages = [u for p in prompts if (u := load_usage(slug, p.hash)) is not None]
+        latencies = [u.latency_ms for u in usages if u.latency_ms is not None]
+        runs.append(
+            {
+                "model": model,
+                "provider": "+".join(
+                    sorted({ur.provider_of(u.model_id) for u in usages})
+                ),
+                "ncalls": len(usages),
+                "input_tokens": sum(u.input_tokens or 0 for u in usages),
+                "output_tokens": sum(u.output_tokens or 0 for u in usages),
+                "reasoning_tokens": sum(u.reasoning_tokens or 0 for u in usages),
+                "cost_usd": f"{sum(u.cost_usd or 0.0 for u in usages):.4f}",
+                "latency_ms_sum": f"{sum(latencies):.0f}",
+                "latency_ms_p50": f"{median(latencies):.0f}" if latencies else "",
+            }
+        )
+    print(
+        f"knowledge:  {len(runs)} models x {len(statements)} statements over"
+        f" {len(prompts)} prompts, ${sum(float(r['cost_usd']) for r in runs):.2f}"
+    )
+    return answers, runs
+
+
+def write_replays_archive(cfg: Config, path: Path) -> Path:
+    """Archive the ground-truth file of each of the config's snapshots.
+
+    Members are sorted and their metadata fixed, so the same files always
+    give the same bytes and a rerun leaves no diff in the article.
+    """
+    scenarios = get_base_scenarios(
+        seed=cfg.get_seed(None),
+        cities=cfg.get_cities(None),
+        disasters=cfg.get_disasters(None),
+    )
+    files = sorted(
+        output_path(s, t) for s in scenarios for t in cfg.get_int_list("snapshot_turns")
+    )
+    missing = [f for f in files if not f.exists()]
+    if missing:
+        sys.exit(
+            f"[error] {len(missing)} ground-truth file(s) missing, e.g. {missing[0]}\n"
+            "  run scripts/extract_ground_truth.py for the continuous config"
+        )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with (
+        path.open("wb") as raw,
+        gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as gz,
+        tarfile.open(fileobj=gz, mode="w", format=tarfile.PAX_FORMAT) as tar,
+    ):
+        for f in files:
+            info = tar.gettarinfo(str(f), arcname=f"{REPLAYS_ARCHIVE_DIR}/{f.name}")
+            info.mtime, info.mode = 0, 0o644
+            info.uid = info.gid = 0
+            info.uname = info.gname = ""
+            with f.open("rb") as fh:
+                tar.addfile(info, fh)
+    return path
+
+
+def recheck_rows(dirname: str) -> list[dict]:
+    """The GPT-5 mini rerun's forecasts, with each response's finish reason.
+
+    Empty when the rerun has not been scored yet, with a note saying how; the
+    paper's other data does not depend on it.
+    """
+    root = g.DATA_ROOT / dirname
+    results = root / "binary" / RECHECK_LABEL / "results.csv"
+    if not results.exists():
+        warn(
+            f"{results} not found; {RECHECK_CSV_NAME} not written. Run"
+            " scripts/run_eval_binary.py, extract_ground_truth.py and"
+            " analyze_binary.py on configs/gpt5-check-1q.json5 to produce it."
+        )
+        return []
+    cache = root / "binary" / "cache"
+    rows = []
+    with results.open(newline="") as f:
+        for r in csv.DictReader(f):
+            response = cache / r["response_file"]
+            sidecar = response.parent / (
+                "usage-"
+                + response.name[len("response-") :].removesuffix(".txt")
+                + ".json"
+            )
+            meta = json.loads(sidecar.read_text()) if sidecar.exists() else {}
+            text = response.read_text() if response.exists() else ""
+            p = float(r["real_prob"])
+            disasters = (
+                "disasters"
+                if r["disasters"] in ("1", "True", "true")
+                else "nodisasters"
+            )
+            rows.append(
+                {
+                    "model": to_model_id(r["model"]),
+                    "question_id": (
+                        f"{r['city']}_{disasters}_seed{r['seed']}_T{r['snapshot_turn']}"
+                        f"_H{r['horizon']}_{r['question_id']}"
+                    ),
+                    "qid": r["question_id"],
+                    "section": question_set(p),
+                    "horizon": years(int(r["horizon"])),
+                    "forecast": "" if r["forecast"] in ("", "nan") else r["forecast"],
+                    "real_prob": r["real_prob"],
+                    "finish_reason": meta.get("finish_reason", ""),
+                    "output_tokens": meta.get("output_tokens", ""),
+                    "has_block": int(ANSWER_BLOCK_MARKER in text),
+                }
+            )
+    unparsed = sum(1 for r in rows if r["forecast"] == "")
+    print(f"recheck:    {results}")
+    print(f"            {len(rows)} forecasts, {unparsed} unparsed")
+    return rows
+
+
+def scale_rows(cfg: Config) -> list[dict]:
+    """One row per city: its metric means up to the first snapshot, floored."""
+    seed = cfg.get_seed(None)
+    snapshot = cfg.get_int_list("snapshot_turns")[0]
+    scales = paper_scales(cfg, seed)
+    if len(scales) != len(cfg.get_cities(None)):
+        sys.exit(
+            "[error] no cached sim log for: "
+            + ", ".join(c for c in cfg.get_cities(None) if c not in scales)
+            + "\n  run scripts/run_sim.py for this config"
+        )
+    print(
+        f"scales:     {len(scales)} cities, mean over turns "
+        f"{SCALES_START_TURN}-{snapshot}, floored"
+    )
+    return [{"city": city, **values} for city, values in scales.items()]
+
+
+@main_with_config
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument(
+        "--continuous-config",
+        default=DEFAULT_CONTINUOUS_CONFIG_PATH,
+        help="JSON5 config for the continuous half "
+        f"(default: {DEFAULT_CONTINUOUS_CONFIG_PATH})",
+    )
+    ap.add_argument(
+        "--binary-config",
+        default=DEFAULT_BINARY_CONFIG_PATH,
+        help="JSON5 config for the binary half "
+        f"(default: {DEFAULT_BINARY_CONFIG_PATH})",
+    )
+    ap.add_argument(
+        "--batching-configs",
+        nargs="*",
+        type=Path,
+        default=sorted(CONFIG_DIR.glob(BATCHING_CONFIG_GLOB)),
+        help="the questions-per-prompt ablation's configs, one per cap "
+        f"(default: configs/{BATCHING_CONFIG_GLOB})",
+    )
+    ap.add_argument(
+        "--variants-configs",
+        nargs="*",
+        type=Path,
+        default=sorted(CONFIG_DIR.glob(VARIANTS_CONFIG_GLOB)),
+        help="the prompt variants' configs, one per variant "
+        f"(default: configs/{VARIANTS_CONFIG_GLOB})",
+    )
+    ap.add_argument(
+        "--knowledge-config",
+        default=KNOWLEDGE_CONFIG_PATH,
+        help=f"JSON5 config of the knowledge test (default: {KNOWLEDGE_CONFIG_PATH})",
+    )
+    ap.add_argument(
+        "--recheck-dir",
+        default=RECHECK_DIR_NAME,
+        help="the data directory the GPT-5 mini rerun was made in "
+        f"(default: {RECHECK_DIR_NAME})",
+    )
+    args = ap.parse_args()
+    if not args.batching_configs:
+        sys.exit(f"[error] no batching configs match configs/{BATCHING_CONFIG_GLOB}")
+
+    continuous_cfg = load_config_at(args.continuous_config)
+    binary_cfg = load_config_at(args.binary_config)
+
+    print("=" * 70)
+    print("MICROPOLIS WORLD — paper data")
+    print("=" * 70)
+    print(f"configs:    {continuous_cfg.path}")
+    print(f"            {binary_cfg.path}")
+    out = paper_dir()
+    print(f"out:        {out}")
+    print()
+
+    binary, binary_coverage = binary_rows(binary_cfg)
+    continuous, continuous_coverage = continuous_rows(continuous_cfg)
+    scales = scale_rows(continuous_cfg)
+    usage = usage_rows("binary", binary_cfg) + usage_rows("continuous", continuous_cfg)
+    print()
+    batching, batching_runs = batching_rows(args.batching_configs)
+    print()
+    variants, variants_runs, variants_settings = variants_rows(
+        args.variants_configs, continuous_cfg
+    )
+    knowledge, knowledge_runs = knowledge_rows(load_config_at(args.knowledge_config))
+    recheck = recheck_rows(args.recheck_dir)
+
+    print()
+    for name, columns, rows in [
+        (BINARY_CSV_NAME, BINARY_COLUMNS, binary),
+        (CONTINUOUS_CSV_NAME, CONTINUOUS_COLUMNS, continuous),
+        (SCALES_CSV_NAME, SCALES_COLUMNS, scales),
+        (
+            COVERAGE_CSV_NAME,
+            COVERAGE_COLUMNS,
+            binary_coverage + continuous_coverage,
+        ),
+        (USAGE_CSV_NAME, USAGE_COLUMNS, usage),
+        (BATCHING_CSV_NAME, BATCHING_COLUMNS, batching),
+        (BATCHING_RUNS_CSV_NAME, BATCHING_RUNS_COLUMNS, batching_runs),
+        (VARIANTS_CSV_NAME, ["variant", *CONTINUOUS_COLUMNS], variants),
+        (VARIANTS_RUNS_CSV_NAME, VARIANTS_RUNS_COLUMNS, variants_runs),
+        (VARIANTS_SETTINGS_CSV_NAME, VARIANTS_SETTINGS_COLUMNS, variants_settings),
+        (KNOWLEDGE_CSV_NAME, KNOWLEDGE_COLUMNS, knowledge),
+        (KNOWLEDGE_RUNS_CSV_NAME, KNOWLEDGE_RUNS_COLUMNS, knowledge_runs),
+        *([(RECHECK_CSV_NAME, RECHECK_COLUMNS, recheck)] if recheck else []),
+    ]:
+        print(f"Wrote {write_csv(out / name, columns, rows)}")
+
+    for path in knowledge_prompt_files(out):
+        print(f"Wrote {path}")
+    print(f"Wrote {write_replays_archive(continuous_cfg, out / REPLAYS_ARCHIVE_NAME)}")
+
+    # Verbatim, header and blank cells included: analyze_paper.py reads it
+    # through the package's own parser, so it has to stay in that format.
+    scores_copy = out / MODEL_SCORES_CSV_NAME
+    scores_copy.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(SCORES_PATH, scores_copy)
+    print(f"Wrote {scores_copy}")
+
+
+if __name__ == "__main__":
+    main()
