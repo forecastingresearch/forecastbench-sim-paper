@@ -9,6 +9,7 @@ jobs:
   public-code:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python: ["3.11", "3.13"]
     steps:
@@ -23,7 +24,7 @@ jobs:
       - run: uv venv --python ${{ matrix.python }} .venv
       - run: uv run --no-project --python .venv/bin/python benchmark-source/packages/fbsim-benchmark/tools/build_wheels.py --output dist/wheels
       - run: uv build --no-sources --wheel --python .venv/bin/python --out-dir dist/wheels .
-      - run: uv pip install --python .venv/bin/python --find-links dist/wheels --constraint requirements-observed.txt 'fbsim-core==0.1.0' 'fbsim-benchmark==0.3.0' 'forecastbench-sim-paper==0.3.0' -r requirements-test.txt
+      - run: uv pip install --python .venv/bin/python --find-links dist/wheels 'fbsim-core==0.1.0' 'fbsim-benchmark==0.3.0' 'forecastbench-sim-paper==0.3.0' -r requirements-test.txt
       - run: uv pip check --python .venv/bin/python
       - run: .venv/bin/python -m fbsim_paper smoke
       - run: .venv/bin/python -m pytest -q tests
