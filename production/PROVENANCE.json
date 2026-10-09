@@ -1,0 +1,605 @@
+{
+ "note": "Every file here is a byte-for-byte copy of its source. Not rerun since the paper.",
+ "files": [
+  {
+   "path": "micropolis/configs/batching/binary-subset-100q.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/batching/binary-subset-100q.json5",
+   "sha256": "ff343f079a1bb525622b85322f3045ec9912f67739ac6b4592247f31fc87d357"
+  },
+  {
+   "path": "micropolis/configs/batching/binary-subset-16q.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/batching/binary-subset-16q.json5",
+   "sha256": "54d7fe5264fa833ca558d9dd47cd6f4b9a65a1d785535e918495ab44b38de931"
+  },
+  {
+   "path": "micropolis/configs/batching/binary-subset-1q.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/batching/binary-subset-1q.json5",
+   "sha256": "32e2b099143d936ffcfea14372244b407a911b372da8f9d8a70736b319f3c74f"
+  },
+  {
+   "path": "micropolis/configs/batching/binary-subset-2q.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/batching/binary-subset-2q.json5",
+   "sha256": "06b2f77f4abf0149f02660232667be7ee98979c2219d363236e88de611fb16eb"
+  },
+  {
+   "path": "micropolis/configs/batching/binary-subset-32q.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/batching/binary-subset-32q.json5",
+   "sha256": "e02d0d65408195719c678a3c61ea2a40b3dafcc26774492ac5ebcbfa6f27cf09"
+  },
+  {
+   "path": "micropolis/configs/batching/binary-subset-4q.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/batching/binary-subset-4q.json5",
+   "sha256": "9a1d63e8f4a2ee8ad4fc4a1b2d1ac97339d3cc434a0908c012cfd9ff799f8fbc"
+  },
+  {
+   "path": "micropolis/configs/batching/binary-subset-64q.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/batching/binary-subset-64q.json5",
+   "sha256": "3e23d2a2deceb7be4469c7b4ad317fdc3bd20ea05f03c9faeff890ea1ae6b1f6"
+  },
+  {
+   "path": "micropolis/configs/batching/binary-subset-8q.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/batching/binary-subset-8q.json5",
+   "sha256": "fa45e6a0ef4d146ee09ccd1b174ee4b4ae327d87416c0713999377977b56c5f9"
+  },
+  {
+   "path": "micropolis/configs/batching/models-loeff-subset.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/batching/models-loeff-subset.json5",
+   "sha256": "7b80c05ebb7a55e0ca27612a4aae60882127205b17eafada8ef7d7e8b39d53fb"
+  },
+  {
+   "path": "micropolis/configs/binary-all.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/binary-all.json5",
+   "sha256": "e2ec43094297ea6e88bd6e4cd3f7ea332de81e2b80ce93080c1e7a679eeacd74"
+  },
+  {
+   "path": "micropolis/configs/binary-testing.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/binary-testing.json5",
+   "sha256": "88c71cd4785a538b3f27b8e273885ee143a67fc133d049635708bc0dc1238dce"
+  },
+  {
+   "path": "micropolis/configs/binary.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/binary.json5",
+   "sha256": "69dac2619ebf2696320afaaa0199cbb4945675b89f2abe19dfe85b03a2bf94d5"
+  },
+  {
+   "path": "micropolis/configs/continuous.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/continuous.json5",
+   "sha256": "7f0ef424bc4aca155ae0a2580b62ad3bf019998775099ae49a231273caa43c07"
+  },
+  {
+   "path": "micropolis/configs/default.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/default.json5",
+   "sha256": "96080df5f822f80e1eac5c5ef62ec9a6c0c44e7ca27a935e6819c915028a6f28"
+  },
+  {
+   "path": "micropolis/configs/forecasts_plots.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/forecasts_plots.json5",
+   "sha256": "8893944d2c6f78f8612ba76b4ff9588b0dc67b48dc2883614925dea324b7b00c"
+  },
+  {
+   "path": "micropolis/configs/gpt5-check-1q.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/gpt5-check-1q.json5",
+   "sha256": "07cffe0affedbb5f1e61b8dcbf8ee3440a00286541f4bfd481087cd1deb8237d"
+  },
+  {
+   "path": "micropolis/configs/knowledge_eval.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/knowledge_eval.json5",
+   "sha256": "ca89cd7ae6cf7183f1cfef8e807fc40a402f768055d5b5ec2920905df9f423ff"
+  },
+  {
+   "path": "micropolis/configs/models-all.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/models-all.json5",
+   "sha256": "eeae3256d99b122774f93f1553d8b60f9849a05c26caa0b7d6b648ca90859d3f"
+  },
+  {
+   "path": "micropolis/configs/models-base.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/models-base.json5",
+   "sha256": "16bbb405d29a6a1864a81b5aaf1b1fa6c0d7a1fef366cf2b55721625194defb7"
+  },
+  {
+   "path": "micropolis/configs/models-default.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/models-default.json5",
+   "sha256": "ff02e9c86496212c9550305d455901dc8fd844e0f86ade665b5c87ba5bb9363e"
+  },
+  {
+   "path": "micropolis/configs/models-for-prompt-variants.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/models-for-prompt-variants.json5",
+   "sha256": "f32abdaa6193b40f234bb30420f8361784556ff546175fbbb24703b81217307a"
+  },
+  {
+   "path": "micropolis/configs/models-loeff.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/models-loeff.json5",
+   "sha256": "f6b74d235f5fafbedb74c1292a3fe49d67b9cfa30b9971bcc2e4f655746b6d29"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-100yhist.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-100yhist.json5",
+   "sha256": "f048a1db04024adee65c2fcdf992aabc103add1a6c5fb9baa55eab552c437f79"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-20yhist.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-20yhist.json5",
+   "sha256": "4489d7ab5e82b055ae33a860c2e8ac88e12f969422389f271f17f04f119e8889"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-last-2y.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-last-2y.json5",
+   "sha256": "531cd0ec1c61cf93393a37e91e3aa2a9a39574c8aa5ff07ef2397b61198d9585"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-long.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-long.json5",
+   "sha256": "5580cf6459299fb5754c7d75b61492f742c46664cc10399865b2e8ca8eb51d11"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-numlonger.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-numlonger.json5",
+   "sha256": "f5f4e39fc4d207ef23dd336831c9dda09d6844032cf7e04ed02d3597d9779270"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-preamble2.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-preamble2.json5",
+   "sha256": "8d5ee6ad97ec05e2e2272f65bf881ba97a17f0c576c1a26479ff097152642411"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-semantic.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-semantic.json5",
+   "sha256": "22c577effb2b1029e8bbc7959ff8ff798ab51b3e5f87dcd0bc6d14a7383e8179"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-semlonger.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-semlonger.json5",
+   "sha256": "6ec3ba674c10207529e0b1b900d9a415f7a5ae19d76d277b7d2c93dc553598c8"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-smallbatch.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-smallbatch.json5",
+   "sha256": "679c43b8ee33d7eceaaa0d6250f3f86d634991dd1879cfdfe3df5eeb74a585fe"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-snapshot-only.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-snapshot-only.json5",
+   "sha256": "8d3adaabc6afc98916bbae9c5b3cb078ce8f561ebfba754c608c21a165941e78"
+  },
+  {
+   "path": "micropolis/configs/prompt variants/prompt-yfreq.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/prompt variants/prompt-yfreq.json5",
+   "sha256": "dd70fad0b0183971e75cfa7e5a6a8bed55e678567478fe7cae44b5012adf4310"
+  },
+  {
+   "path": "micropolis/configs/testing.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/configs/testing.json5",
+   "sha256": "00ce4722ce57cc17e5b281a7270705ccbf72bb11d82dc0160c1f359043422215"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/epilogue-binary.txt",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/epilogue-binary.txt",
+   "sha256": "5f1f216484751223bf1ed75b773fc2073aae571937875dd601d83b276f0042ea"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/epilogue1.txt",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/epilogue1.txt",
+   "sha256": "e1209f65c25a0694f2551480889d2736be4502912a97f6df3f56e741164c98a7"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/epilogue2.txt",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/epilogue2.txt",
+   "sha256": "ec9e0a49b73540f9936a68f3d99781f0b13601b498ae835c7052b0b330b29f5f"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/model_scores.csv",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/model_scores.csv",
+   "sha256": "27127ce94f7f8b917dace24b5bafe9d29ccf2ab6e64c99088b1619b684bd6d99"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/models.csv",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/models.csv",
+   "sha256": "2ebcc4a4564cb0cc80101017385c1aaa9658add95c6e90c323df5466979f7790"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/preamble-binary.txt",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/preamble-binary.txt",
+   "sha256": "18c5384c61067cadc02eb675858071c7e051b7735b72e6495244a0578d5ca3da"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/preamble1-snapshot.txt",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/preamble1-snapshot.txt",
+   "sha256": "f2aa2ab51a2b6947f3db31b282ff4bfdb7552dc25aece7de76028ec02a21c89d"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/preamble1.txt",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/preamble1.txt",
+   "sha256": "ca8a8383d8c5ce561abdc2a5fb84d8aaad6c90ff5a05278d5e9b549090f4db87"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/preamble2.txt",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/preamble2.txt",
+   "sha256": "b5a0a22e6972cc2d41e0afc172f4c0d9f01e7c82c1bf5b9da479741c6e630db4"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/preamble2b.txt",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/preamble2b.txt",
+   "sha256": "16bb2367cee76db01864d29ae075ccc911bce5286493adb35ccb0c6c47b19c42"
+  },
+  {
+   "path": "micropolis/micropolis_world/datafiles/starting_populations.csv",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/datafiles/starting_populations.csv",
+   "sha256": "b727864bbc137f3f0f306d1175d18ddfca95601b9e87d091e0c25f7fc40d07df"
+  },
+  {
+   "path": "micropolis/micropolis_world/knowledge_eval/prompt_preamble.txt",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/knowledge_eval/prompt_preamble.txt",
+   "sha256": "5897ef79cea57e80d89229ad601ae2b49bf943c3bc189b3c3b0e761ff8d8806d"
+  },
+  {
+   "path": "micropolis/micropolis_world/knowledge_eval/statements.py",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/knowledge_eval/statements.py",
+   "sha256": "5fd37ba9ccb8ba408e630c5fa41bf39b953bde7196fd678b69c5006a41373f7a"
+  },
+  {
+   "path": "micropolis/micropolis_world/model_specs.json5",
+   "source": "github.com/fdrocha/forecastbench-sim@8c70972b698f079d54b8a2255c81fbefc55e7d99:worlds/micropolis/micropolis_world/model_specs.json5",
+   "sha256": "4dc4ea3fb82b30517835d91ed496e4c9a0924ed4e0f19d901a77c44cca0fc27c"
+  },
+  {
+   "path": "starsim/fixed_state/corrected_smoke/REPORT.md",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/corrected_smoke/REPORT.md",
+   "sha256": "788b2ab8c748b525873316e50a02ccf17f828f83a669cb198297ea9d3f2684cf"
+  },
+  {
+   "path": "starsim/fixed_state/corrected_smoke/inputs.json",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/data/datasets/starsim-audit/corrected_smoke/inputs.json",
+   "sha256": "d975e658a87a6eff2bf7652d87ed4332698b701c767dcef9bc49582afa24b2c2"
+  },
+  {
+   "path": "starsim/fixed_state/corrected_smoke/job_w0.json",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/data/datasets/starsim-audit/corrected_smoke/job_w0.json",
+   "sha256": "23b0ad6283c2cda75629d0bc6757267db299797f14585079323419b89a42936c"
+  },
+  {
+   "path": "starsim/fixed_state/corrected_smoke/job_w3.json",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/data/datasets/starsim-audit/corrected_smoke/job_w3.json",
+   "sha256": "87cbe035abf49c7d7682b81f651dc8ec0e61df3f5ad78dde6c58fb8dfb1d043d"
+  },
+  {
+   "path": "starsim/fixed_state/corrected_smoke/run.sh",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/corrected_smoke/run.sh",
+   "sha256": "f856f96539946f9ad28707bde9f9695950ed04a65203130e87aa18bc00805cee"
+  },
+  {
+   "path": "starsim/fixed_state/corrected_smoke/streams.json",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/data/datasets/starsim-audit/corrected_smoke/streams.json",
+   "sha256": "86248f7e6a834a7dccbc2cb7d122d8103168f759debcc985dec940a25b18e1b5"
+  },
+  {
+   "path": "starsim/fixed_state/corrected_smoke/summarize.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/corrected_smoke/summarize.py",
+   "sha256": "bd5f4c58ec45ba8ad772e5c1992343c5a0e282dacc3bba7a9d4499a4a7147783"
+  },
+  {
+   "path": "starsim/fixed_state/corrected_smoke/validate.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/corrected_smoke/validate.py",
+   "sha256": "506674f739a8223991105d3261a1304ee8a8f331f6f18ad2c7fe428cf1399519"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/PLAN.json",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/homes/forecastbench-sim-private/configs/starsim-fixed-state/PLAN.json",
+   "sha256": "a8ae21e3f62e1b9f265eac55ec05ab7c04d4321d56c19b6b1830d228ba0ff6bc"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/PLAN.sha256",
+   "source": "fbsim-all-data.zip:data/datasets/starsim-audit/production_v1/PLAN.sha256",
+   "sha256": "26e0bacc4ca5f8e0efd8ffbad0115de030c390c8dafd9d59257d09ee01c636bd"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/REPORT.md",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/REPORT.md",
+   "sha256": "82d5d80217bef582c1272bbd65fdb87e7309cdc3075d90b11b67876d9a550c94"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/build_report.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/build_report.py",
+   "sha256": "4e167e10a6e06f928eefcbed0a73977e50f4f0b58021e8ff71b8f4107a386f0b"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/diagnose_precision.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/diagnose_precision.py",
+   "sha256": "9f377a9a41b28c7e7a1b44ba232c78ee41cc8165a4e699b95ef0e0a1bdb9615c"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/oracle_precision.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/oracle_precision.py",
+   "sha256": "85ace1e66050ed67917d0c86b98ebb875c9c3b480ab2890ab6f852798a2cb6b2"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/production.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/production.py",
+   "sha256": "752b8d3920b1fc85bee8df8b8f35c60002e677bc29142de0bd9c3f8e9dd72ccc"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/rescore.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/rescore.py",
+   "sha256": "5aca804a95c6138524dbf6620a195b4f7c182e38a50ab11f672be4eb67ff9521"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/rescore.sh",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/rescore.sh",
+   "sha256": "75dc12296f6b7f7a4c354112677d1d7089130740531d62ce135ca8991bc0af11"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/resume.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/resume.py",
+   "sha256": "919a65b19ae19ef63ecef188ee376ae5bed918ba660c8e02a59ecf60b74b6adf"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/resume.sh",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/resume.sh",
+   "sha256": "24dcc5a2fdd16eb722e97bdb281e05c5d2f779361130a1283dcdef1562684c0f"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/run.sh",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/run.sh",
+   "sha256": "f383d5f80ff16e8a4ca183ed89f6e32b1e05d676d5e8b40932949c8397b1e794"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/supplement.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/supplement.py",
+   "sha256": "d291ea15d37d0e199cd64306de33d5277649513570daed03dc7e6057e564edc7"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/verify_numeric.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/verify_numeric.py",
+   "sha256": "860079dc41f98a9ea799715270d1a8f347ddcc066ee2209bd2f801051860bb37"
+  },
+  {
+   "path": "starsim/fixed_state/production_v1/verify_uptake.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/production_v1/verify_uptake.py",
+   "sha256": "cef32c76103812fa448973837b34899e1f8638118272f805b640f6e2a8cde834"
+  },
+  {
+   "path": "starsim/fixed_state/smoke/REPORT.md",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/smoke/REPORT.md",
+   "sha256": "e17c74c36cc2e96c3e5436f49fdf645bd5db11ee451937193ad76edbb5660710"
+  },
+  {
+   "path": "starsim/fixed_state/smoke/coverage_diagnosis.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/smoke/coverage_diagnosis.py",
+   "sha256": "1e446afc4c41f6382672c0ff6470ecc393bbfe3e11b2492fa4637330497d0085"
+  },
+  {
+   "path": "starsim/fixed_state/smoke/extended_checks.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/smoke/extended_checks.py",
+   "sha256": "d31be666bc23f1084a4f09c855400052fc6c88b7d2349782de85e0cc16da810e"
+  },
+  {
+   "path": "starsim/fixed_state/smoke/finalize_report.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/smoke/finalize_report.py",
+   "sha256": "28898facb824bea1deced5a9d9cab0bca96efb7b235301ba5059692b804e7345"
+  },
+  {
+   "path": "starsim/fixed_state/smoke/inputs.json",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/data/datasets/starsim-audit/smoke/inputs.json",
+   "sha256": "2685328b60a150bc085de91636dac08c3ac36c787ebcb792d85e914903d245c8"
+  },
+  {
+   "path": "starsim/fixed_state/smoke/run_smoke.sh",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/smoke/run_smoke.sh",
+   "sha256": "af0fa6e108cb0e2b59bb4cb64b50020f8a0b2ba5737c6fec16b5aaddf9613b65"
+  },
+  {
+   "path": "starsim/fixed_state/smoke/smoke.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/smoke/smoke.py",
+   "sha256": "65d651d1f0f6f2698552817a74bbc577b52e7e991a00a2a6ed997220769972e6"
+  },
+  {
+   "path": "starsim/fixed_state/smoke/streams.json",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/data/datasets/starsim-audit/smoke/streams.json",
+   "sha256": "554c5aa41fe94962992dc9a9233baa0e28e269af67aa34bf65b114a888307366"
+  },
+  {
+   "path": "starsim/fixed_state/smoke/summarize.py",
+   "source": "fbsim-supplement-20261001.zip:files/iclr-consolidation-20260923-130000/forecastbench-sim/worlds/pandemic/fixed_state/smoke/summarize.py",
+   "sha256": "d17e4a8368c77e227b7f1f6ba7e5d36213cda5abdf9cc769ff11eec42f092999"
+  },
+  {
+   "path": "starsim/iclr-2026/.python-version",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:.python-version",
+   "sha256": "02e735b3dfe1c32833eb550b7ff8ffa17f5f2bc3fa1e7bae61a8f5a3883ce398"
+  },
+  {
+   "path": "starsim/iclr-2026/pyproject.toml",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:pyproject.toml",
+   "sha256": "7d8a399fc5ac9e8155c93d0857f64c3c1f513bdb0ba12358ca47c974db1145b1"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/DESIGN.md",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/DESIGN.md",
+   "sha256": "5f4f8f7013b16dde16ac9dd2705d794eb133190563c665ad613cf4f4da117c71"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/data/models.csv",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/data/models.csv",
+   "sha256": "caae866456a5a157d352da73b33c47f525682dee48fb81ded8346c54883426ae"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/data/worlds/climatology.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/data/worlds/climatology.json",
+   "sha256": "192e658e64528141ce94aa6b7c8e299f135bdde1fa8d3337d945a6fb8a7002d4"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/data/worlds/worlds_c25.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/data/worlds/worlds_c25.json",
+   "sha256": "d7a28de2b94a92233c6149ff43502222a684e52507f47d1329536b081a796815"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/data/worlds/worlds_c50.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/data/worlds/worlds_c50.json",
+   "sha256": "71818dd9e6c84549758e5895335cd1de2e51d9b0fe5460a44096dc0555bfcd71"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/data/worlds/worlds_c90.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/data/worlds/worlds_c90.json",
+   "sha256": "2ebee2425e9ca1c7dd30995e3c6e50364221dce2f9a68c141d0909c2ef691afe"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/rerun_lowest/run_all.sh",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/rerun_lowest/run_all.sh",
+   "sha256": "83f3f79437610f79c407cbee1814a6b7c694def3b9825c93134d096d19068def"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/chart.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/chart.py",
+   "sha256": "f7e2f2b91ef147d5f26b37a2c08ab912c7a0e872a8fa6621d5d9bcb9840ee22d"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/chart_pooled.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/chart_pooled.py",
+   "sha256": "0fa87c4f5b645c3a5d74a0068db477f64db1889019b6a49406b93753f89aa956"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/chart_rungs.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/chart_rungs.py",
+   "sha256": "7647256e6dc4ec220e30f669bd890069e76dbf6e2dcdf0456d7450fc649caa5e"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/ladder_chart.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/ladder_chart.py",
+   "sha256": "49dec1f21680d57a97e5fbfdaba944901c01c87a4c085a3f65797fdbb5181990"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/llm.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/llm.py",
+   "sha256": "0bc277d49fe004e515a6bb914f4e93c9b353b7f9ad9d13658d89811e390c3ea9"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/mine_dose.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/mine_dose.py",
+   "sha256": "b3b67a7e342f4c62f7393ef6b889d760a937ae93a05d89bbc230bf800af07df7"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/mine_worlds.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/mine_worlds.py",
+   "sha256": "7940e4d4879c8c239ecc03dabd34be3e63e786bda5833949e7444c65a2060df7"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/models.csv",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/models.csv",
+   "sha256": "2de0e8fd5cdd844618d18a0d0f9e182e5e1996391dfa433385965ca2b150099b"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/models.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/models.py",
+   "sha256": "fade6a2221defd9dddf5d960b3a3f044329a7b5dcfd9299ef38158c2caab8fdb"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/prompts.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/prompts.py",
+   "sha256": "0c702adab65037c99a9c7ce92277af36685f7a8ac5becb2490a73f8bb7352a40"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/resolve_models.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/resolve_models.py",
+   "sha256": "5673ad32e1d6a6c67d5dfc9ce35f00fc050e753108fe87f77cbf621454b45bb9"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/run.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/run.py",
+   "sha256": "070508874ab251dbe98b595f855a50b22899c42497deb0c1d31e0344f81722ea"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/score.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/score.py",
+   "sha256": "5f80217b9ef58978ac6c5324e8c234455c9fdb9e5126e90ef2fe9aeaa3caaebf"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/smoke_test.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/smoke_test.py",
+   "sha256": "de2e6b06492b13381aaa3dd1275b3de49d611f0e9d46cec4a2771c79bca234bc"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/worlds.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/worlds.json",
+   "sha256": "900de9d87a51684cb392c00e8c79ab5d90b7f1c6b234af0535af70de105508c2"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_causal/worlds_hold.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_causal/worlds_hold.json",
+   "sha256": "ac5663cd2e8ac939c2b8299902d0782311bfa4c0dd03467ef4a393e6c108985f"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/__init__.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/__init__.py",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/chart.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/chart.py",
+   "sha256": "6d727b146af4d77813a494626bc5b63d39e0a04f284e77442b75cb649c09c78b"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/chart_pooled.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/chart_pooled.py",
+   "sha256": "14dbccde72166df312f980398921f68f965937e7691eda708695a76fd3673607"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/climatology.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/climatology.json",
+   "sha256": "192e658e64528141ce94aa6b7c8e299f135bdde1fa8d3337d945a6fb8a7002d4"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/climatology.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/climatology.py",
+   "sha256": "cb8814a3e0fd5a7016d46c873a6b02c83cd54bd4ef7ad26bdf8a101e41e1eee5"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/effect_sizes.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/effect_sizes.py",
+   "sha256": "30c556f74778aca88ee786cf15af08935cc537bc2e6694fdc9f6dc9b68cc9947"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/mine_single.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/mine_single.py",
+   "sha256": "e9190744621ad9eadf951d28f902c3de3d67d9389002786588c428603768bc1c"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/qprompts.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/qprompts.py",
+   "sha256": "78e208c483482015d40908da67a301376e4ace0e786f6efc2aab87f4f14687fb"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/run.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/run.py",
+   "sha256": "e75d2c16208267429e0c8e0539c0721aea674d3536f8c61e47921e67f7282327"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/score.py",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/score.py",
+   "sha256": "8cd64f721bb016662bcbb20997fbdcb929d4151f3c337c87d0012cb5140462f8"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/worlds.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/worlds.json",
+   "sha256": "2ebee2425e9ca1c7dd30995e3c6e50364221dce2f9a68c141d0909c2ef691afe"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/worlds_c25.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/worlds_c25.json",
+   "sha256": "d7a28de2b94a92233c6149ff43502222a684e52507f47d1329536b081a796815"
+  },
+  {
+   "path": "starsim/iclr-2026/results/causal/starsim_single/worlds_c50.json",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:results/causal/starsim_single/worlds_c50.json",
+   "sha256": "71818dd9e6c84549758e5895335cd1de2e51d9b0fe5460a44096dc0555bfcd71"
+  },
+  {
+   "path": "starsim/iclr-2026/uv.lock",
+   "source": "github.com/forecastingresearch/iclr-2026@05dd501:uv.lock",
+   "sha256": "fb34a78987a502c98f04dcb7fd2e1d7ee2e43eec068f2640f1e1f8ccde9d2425"
+  },
+  {
+   "path": "starsim/pandemic-runner-p_death.patch",
+   "source": "uncommitted change to worlds/pandemic/pandemic_world/runner.py on a local forecastbench-sim checkout at 65204aa59cfb9fa835cf5b2af8917e02e98a4f26",
+   "sha256": "b9e117b4ea6e8c19aaaf6b01f9ef0fe320a1b260b98f70087ce1d7a68a01717f"
+  }
+ ]
+}

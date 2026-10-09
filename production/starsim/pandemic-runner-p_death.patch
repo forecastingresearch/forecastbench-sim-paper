@@ -1,0 +1,21 @@
+diff --git a/worlds/pandemic/pandemic_world/runner.py b/worlds/pandemic/pandemic_world/runner.py
+index c31904df..461ee2d3 100644
+--- a/worlds/pandemic/pandemic_world/runner.py
++++ b/worlds/pandemic/pandemic_world/runner.py
+@@ -16,9 +16,13 @@ METRICS = ["cumulative_cases", "active_infections", "cumulative_deaths"]
+ 
+ 
+ def run_region(beta: float, vaccinate: bool, vax_efficacy: float,
+-               vax_day: int, vax_coverage: float, seed: int) -> dict:
+-    """Run one region's SIR sim; return per-day metric arrays."""
+-    sir = ss.SIR(init_prev=0.005, beta=beta, dur_inf=10, p_death=P_DEATH)
++               vax_day: int, vax_coverage: float, seed: int,
++               p_death: float = P_DEATH) -> dict:
++    """Run one region's SIR sim; return per-day metric arrays.
++
++    p_death: per-infection death probability (default P_DEATH; pass 0 for a
++    pure SIR with no mortality)."""
++    sir = ss.SIR(init_prev=0.005, beta=beta, dur_inf=10, p_death=p_death)
+     pars = dict(
+         n_agents=N_AGENTS,
+         networks=dict(type="random", n_contacts=N_CONTACTS),

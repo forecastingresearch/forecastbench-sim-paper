@@ -1,0 +1,378 @@
+{
+ "design": {
+  "n_agents": 5000,
+  "n_contacts": 6,
+  "dur_inf": 10,
+  "p_death": 0.0,
+  "betas": [
+   0.03,
+   0.04,
+   0.05,
+   0.065
+  ],
+  "snapshot_day": 20,
+  "horizons": [
+   40,
+   60
+  ],
+  "match_band": 0.15,
+  "n_seeds": 300,
+  "vax": {
+   "efficacy": 0.95,
+   "day": 21,
+   "coverage": 0.9
+  }
+ },
+ "worlds": [
+  {
+   "world_id": "w0",
+   "beta_r": 0.04,
+   "beta_s": 0.03,
+   "leader": "R",
+   "leader_name": "Riverton",
+   "seed_r": 33,
+   "seed_s": 27,
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.040 (basic reproduction number R0 \u2248 2.4); 23 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.030 (R0 \u2248 1.8); 28 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:28 -> d5:88 -> d10:227 -> d15:548 -> d20:1129   (day 20: 911 currently infectious)\n  Southbay: d0:32 -> d5:66 -> d10:118 -> d15:225 -> d20:431   (day 20: 327 currently infectious)",
+   "intervention": "Riverton will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Riverton's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Southbay has no planned intervention.",
+   "n_matched": [
+    157,
+    131,
+    157,
+    131
+   ]
+  },
+  {
+   "world_id": "w1",
+   "beta_r": 0.05,
+   "beta_s": 0.04,
+   "leader": "R",
+   "leader_name": "Riverton",
+   "seed_r": 62,
+   "seed_s": 33,
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.050 (basic reproduction number R0 \u2248 3.0); 23 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.040 (R0 \u2248 2.4); 23 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:29 -> d5:114 -> d10:399 -> d15:1078 -> d20:2316   (day 20: 1944 currently infectious)\n  Southbay: d0:28 -> d5:88 -> d10:227 -> d15:548 -> d20:1129   (day 20: 911 currently infectious)",
+   "intervention": "Riverton will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Riverton's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Southbay has no planned intervention.",
+   "n_matched": [
+    202,
+    157,
+    202,
+    157
+   ]
+  },
+  {
+   "world_id": "w2",
+   "beta_r": 0.05,
+   "beta_s": 0.065,
+   "leader": "S",
+   "leader_name": "Southbay",
+   "seed_r": 62,
+   "seed_s": 47,
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.050 (basic reproduction number R0 \u2248 3.0); 23 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.065 (R0 \u2248 3.9); 17 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:29 -> d5:114 -> d10:399 -> d15:1078 -> d20:2316   (day 20: 1944 currently infectious)\n  Southbay: d0:22 -> d5:141 -> d10:659 -> d15:2186 -> d20:3994   (day 20: 3389 currently infectious)",
+   "intervention": "Southbay will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Southbay's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Riverton has no planned intervention.",
+   "n_matched": [
+    202,
+    290,
+    202,
+    290
+   ]
+  },
+  {
+   "world_id": "w3",
+   "beta_r": 0.03,
+   "beta_s": 0.04,
+   "leader": "S",
+   "leader_name": "Southbay",
+   "seed_r": 27,
+   "seed_s": 33,
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.030 (basic reproduction number R0 \u2248 1.8); 28 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.040 (R0 \u2248 2.4); 23 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:32 -> d5:66 -> d10:118 -> d15:225 -> d20:431   (day 20: 327 currently infectious)\n  Southbay: d0:28 -> d5:88 -> d10:227 -> d15:548 -> d20:1129   (day 20: 911 currently infectious)",
+   "intervention": "Southbay will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Southbay's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Riverton has no planned intervention.",
+   "n_matched": [
+    131,
+    157,
+    131,
+    157
+   ]
+  }
+ ],
+ "items": [
+  {
+   "item_id": "w0_Rlead_d40",
+   "world_id": "w0",
+   "horizon": 40,
+   "question": "Will Riverton have more cumulative infections than Southbay at day 40?",
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.040 (basic reproduction number R0 \u2248 2.4); 23 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.030 (R0 \u2248 1.8); 28 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:28 -> d5:88 -> d10:227 -> d15:548 -> d20:1129   (day 20: 911 currently infectious)\n  Southbay: d0:32 -> d5:66 -> d10:118 -> d15:225 -> d20:431   (day 20: 327 currently infectious)",
+   "intervention": "Riverton will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Riverton's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Southbay has no planned intervention.",
+   "truth_base": 1.0,
+   "truth_base_ci": [
+    1.0,
+    1.0
+   ],
+   "truth_int": 0.0,
+   "truth_int_ci": [
+    0.0,
+    0.0
+   ],
+   "delta_do": -1.0,
+   "config": {
+    "beta_r": 0.04,
+    "beta_s": 0.03,
+    "leader": "R",
+    "seed_r": 33,
+    "seed_s": 27,
+    "n": [
+     157,
+     131,
+     157,
+     131
+    ],
+    "efficacy": 0.95,
+    "day": 21,
+    "coverage": 0.9
+   }
+  },
+  {
+   "item_id": "w0_Rlead_d60",
+   "world_id": "w0",
+   "horizon": 60,
+   "question": "Will Riverton have more cumulative infections than Southbay at day 60?",
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.040 (basic reproduction number R0 \u2248 2.4); 23 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.030 (R0 \u2248 1.8); 28 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:28 -> d5:88 -> d10:227 -> d15:548 -> d20:1129   (day 20: 911 currently infectious)\n  Southbay: d0:32 -> d5:66 -> d10:118 -> d15:225 -> d20:431   (day 20: 327 currently infectious)",
+   "intervention": "Riverton will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Riverton's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Southbay has no planned intervention.",
+   "truth_base": 1.0,
+   "truth_base_ci": [
+    1.0,
+    1.0
+   ],
+   "truth_int": 0.0,
+   "truth_int_ci": [
+    0.0,
+    0.0
+   ],
+   "delta_do": -1.0,
+   "config": {
+    "beta_r": 0.04,
+    "beta_s": 0.03,
+    "leader": "R",
+    "seed_r": 33,
+    "seed_s": 27,
+    "n": [
+     157,
+     131,
+     157,
+     131
+    ],
+    "efficacy": 0.95,
+    "day": 21,
+    "coverage": 0.9
+   }
+  },
+  {
+   "item_id": "w1_Rlead_d40",
+   "world_id": "w1",
+   "horizon": 40,
+   "question": "Will Riverton have more cumulative infections than Southbay at day 40?",
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.050 (basic reproduction number R0 \u2248 3.0); 23 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.040 (R0 \u2248 2.4); 23 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:29 -> d5:114 -> d10:399 -> d15:1078 -> d20:2316   (day 20: 1944 currently infectious)\n  Southbay: d0:28 -> d5:88 -> d10:227 -> d15:548 -> d20:1129   (day 20: 911 currently infectious)",
+   "intervention": "Riverton will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Riverton's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Southbay has no planned intervention.",
+   "truth_base": 1.0,
+   "truth_base_ci": [
+    1.0,
+    1.0
+   ],
+   "truth_int": 0.0,
+   "truth_int_ci": [
+    0.0,
+    0.0
+   ],
+   "delta_do": -1.0,
+   "config": {
+    "beta_r": 0.05,
+    "beta_s": 0.04,
+    "leader": "R",
+    "seed_r": 62,
+    "seed_s": 33,
+    "n": [
+     202,
+     157,
+     202,
+     157
+    ],
+    "efficacy": 0.95,
+    "day": 21,
+    "coverage": 0.9
+   }
+  },
+  {
+   "item_id": "w1_Rlead_d60",
+   "world_id": "w1",
+   "horizon": 60,
+   "question": "Will Riverton have more cumulative infections than Southbay at day 60?",
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.050 (basic reproduction number R0 \u2248 3.0); 23 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.040 (R0 \u2248 2.4); 23 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:29 -> d5:114 -> d10:399 -> d15:1078 -> d20:2316   (day 20: 1944 currently infectious)\n  Southbay: d0:28 -> d5:88 -> d10:227 -> d15:548 -> d20:1129   (day 20: 911 currently infectious)",
+   "intervention": "Riverton will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Riverton's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Southbay has no planned intervention.",
+   "truth_base": 1.0,
+   "truth_base_ci": [
+    1.0,
+    1.0
+   ],
+   "truth_int": 0.0,
+   "truth_int_ci": [
+    0.0,
+    0.0
+   ],
+   "delta_do": -1.0,
+   "config": {
+    "beta_r": 0.05,
+    "beta_s": 0.04,
+    "leader": "R",
+    "seed_r": 62,
+    "seed_s": 33,
+    "n": [
+     202,
+     157,
+     202,
+     157
+    ],
+    "efficacy": 0.95,
+    "day": 21,
+    "coverage": 0.9
+   }
+  },
+  {
+   "item_id": "w2_Slead_d40",
+   "world_id": "w2",
+   "horizon": 40,
+   "question": "Will Riverton have more cumulative infections than Southbay at day 40?",
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.050 (basic reproduction number R0 \u2248 3.0); 23 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.065 (R0 \u2248 3.9); 17 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:29 -> d5:114 -> d10:399 -> d15:1078 -> d20:2316   (day 20: 1944 currently infectious)\n  Southbay: d0:22 -> d5:141 -> d10:659 -> d15:2186 -> d20:3994   (day 20: 3389 currently infectious)",
+   "intervention": "Southbay will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Southbay's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Riverton has no planned intervention.",
+   "truth_base": 0.0,
+   "truth_base_ci": [
+    0.0,
+    0.0
+   ],
+   "truth_int": 1.0,
+   "truth_int_ci": [
+    1.0,
+    1.0
+   ],
+   "delta_do": 1.0,
+   "config": {
+    "beta_r": 0.05,
+    "beta_s": 0.065,
+    "leader": "S",
+    "seed_r": 62,
+    "seed_s": 47,
+    "n": [
+     202,
+     290,
+     202,
+     290
+    ],
+    "efficacy": 0.95,
+    "day": 21,
+    "coverage": 0.9
+   }
+  },
+  {
+   "item_id": "w2_Slead_d60",
+   "world_id": "w2",
+   "horizon": 60,
+   "question": "Will Riverton have more cumulative infections than Southbay at day 60?",
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.050 (basic reproduction number R0 \u2248 3.0); 23 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.065 (R0 \u2248 3.9); 17 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:29 -> d5:114 -> d10:399 -> d15:1078 -> d20:2316   (day 20: 1944 currently infectious)\n  Southbay: d0:22 -> d5:141 -> d10:659 -> d15:2186 -> d20:3994   (day 20: 3389 currently infectious)",
+   "intervention": "Southbay will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Southbay's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Riverton has no planned intervention.",
+   "truth_base": 0.0,
+   "truth_base_ci": [
+    0.0,
+    0.0
+   ],
+   "truth_int": 1.0,
+   "truth_int_ci": [
+    1.0,
+    1.0
+   ],
+   "delta_do": 1.0,
+   "config": {
+    "beta_r": 0.05,
+    "beta_s": 0.065,
+    "leader": "S",
+    "seed_r": 62,
+    "seed_s": 47,
+    "n": [
+     202,
+     290,
+     202,
+     290
+    ],
+    "efficacy": 0.95,
+    "day": 21,
+    "coverage": 0.9
+   }
+  },
+  {
+   "item_id": "w3_Slead_d40",
+   "world_id": "w3",
+   "horizon": 40,
+   "question": "Will Riverton have more cumulative infections than Southbay at day 40?",
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.030 (basic reproduction number R0 \u2248 1.8); 28 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.040 (R0 \u2248 2.4); 23 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:32 -> d5:66 -> d10:118 -> d15:225 -> d20:431   (day 20: 327 currently infectious)\n  Southbay: d0:28 -> d5:88 -> d10:227 -> d15:548 -> d20:1129   (day 20: 911 currently infectious)",
+   "intervention": "Southbay will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Southbay's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Riverton has no planned intervention.",
+   "truth_base": 0.0,
+   "truth_base_ci": [
+    0.0,
+    0.0
+   ],
+   "truth_int": 1.0,
+   "truth_int_ci": [
+    1.0,
+    1.0
+   ],
+   "delta_do": 1.0,
+   "config": {
+    "beta_r": 0.03,
+    "beta_s": 0.04,
+    "leader": "S",
+    "seed_r": 27,
+    "seed_s": 33,
+    "n": [
+     131,
+     157,
+     131,
+     157
+    ],
+    "efficacy": 0.95,
+    "day": 21,
+    "coverage": 0.9
+   }
+  },
+  {
+   "item_id": "w3_Slead_d60",
+   "world_id": "w3",
+   "horizon": 60,
+   "question": "Will Riverton have more cumulative infections than Southbay at day 60?",
+   "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nTwo isolated regions, Riverton and Southbay: 5,000 people each, no travel between them.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Riverton: transmission probability per contact per day 0.030 (basic reproduction number R0 \u2248 1.8); 28 people infectious at day 0.\n  Southbay: transmission probability per contact per day 0.040 (R0 \u2248 2.4); 23 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:32 -> d5:66 -> d10:118 -> d15:225 -> d20:431   (day 20: 327 currently infectious)\n  Southbay: d0:28 -> d5:88 -> d10:227 -> d15:548 -> d20:1129   (day 20: 911 currently infectious)",
+   "intervention": "Southbay will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Southbay's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%. Riverton has no planned intervention.",
+   "truth_base": 0.0,
+   "truth_base_ci": [
+    0.0,
+    0.0
+   ],
+   "truth_int": 1.0,
+   "truth_int_ci": [
+    1.0,
+    1.0
+   ],
+   "delta_do": 1.0,
+   "config": {
+    "beta_r": 0.03,
+    "beta_s": 0.04,
+    "leader": "S",
+    "seed_r": 27,
+    "seed_s": 33,
+    "n": [
+     131,
+     157,
+     131,
+     157
+    ],
+    "efficacy": 0.95,
+    "day": 21,
+    "coverage": 0.9
+   }
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+// Config for scripts/run_eval_knowledge.py — the Micropolis domain-knowledge
+// test (True/False/Unknown statements, scored per model).
+//
+// The "models" list is the default set used across the freeciv world: the same
+// five models appear verbatim in run_bin_condition.py, run_combined_condition.py,
+// run_generate_scenario.py, run_scenario_enumeration.py, run_scenario_weighting.py,
+// run_structured_mixture.py, run_trajectory_condition.py and
+// run_tutorial_conditions.py.
+//
+// Only "models" and the optional "concurrency" are read by
+// run_eval_knowledge.py; the rest of the keys are here so this file also
+// works with the other micropolis scripts.
+// analyze_knowledge.py also reads "models", to recover the provider/name ids
+// that the cached response filenames have flattened.
+{
+  "models": "models-loeff.json5",
+}
