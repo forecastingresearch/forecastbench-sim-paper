@@ -1,0 +1,26 @@
+// Prompt variant 'snapshot-only' of the continuous eval. No history table at all: current state and events only, with preamble 1 minus the word 'trends'.
+// Everything else is configs/continuous.json5: 15 cities with disasters on, the
+// 24 models of models-loeff.json5, horizons of 3, 5, 7 and 10 years, city funds
+// censored, so each model answers 30 prompts of 20 questions (smallbatch: 5 per snapshot).
+{
+  "seed": 42,
+  "cities": ["bruce", "haight", "freds", "happisle", "joffburg", "kamakura", "kowloon", "linecity", "senri", "southpac", "wetcity", "yokohama", "kobe", "kyoto", "deadwood"],
+  "disasters": [true],
+  "turns": 2400,
+  "snapshot_turns": [240, 480], // years 5 and 10
+  "horizons": [144, 240, 336, 480], // 3, 5, 7 and 10 years
+  "norm_global_frac": 0.01,
+  "report_turn": -1,
+  "censorCityFunds": true,
+  "branch_nseeds": 1000,
+  "questions_per_prompt": 50,
+
+  // What this variant changes
+  "preamble_path": "preamble1-snapshot.txt",
+  "snapshot_only_report": true,
+  "history_freq": 4,
+  "questions_sort": "turn",
+  "report_effectiveness": true,
+
+  "models": "../models-loeff.json5",
+}

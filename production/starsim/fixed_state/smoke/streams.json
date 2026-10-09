@@ -1,0 +1,618 @@
+[
+  {
+    "world": "w0",
+    "rep": 0,
+    "child_seed": 16109857765589202215,
+    "streams": {
+      "pars_networks_randomnet_n_contacts": {
+        "seed": 16109857766061323097,
+        "trace": "pars_networks_randomnet_n_contacts",
+        "root": "19fa32fbe76afa830f7ff458dc83559e9bf8cb12a36f34169e52087b71144cfb",
+        "state": "19fa32fbe76afa830f7ff458dc83559e9bf8cb12a36f34169e52087b71144cfb",
+        "ind": 21001
+      },
+      "pars_diseases_sir_init_prev": {
+        "seed": 16109857765692692700,
+        "trace": "pars_diseases_sir_init_prev",
+        "root": "bf7cc8d414be111eec3302b8b3d21954cf85579ff04bf92c75d0931544e67341",
+        "state": "bf7cc8d414be111eec3302b8b3d21954cf85579ff04bf92c75d0931544e67341",
+        "ind": 21000
+      },
+      "pars_diseases_sir_dur_inf": {
+        "seed": 16109857765623248212,
+        "trace": "pars_diseases_sir_dur_inf",
+        "root": "714c247c94f8c12ddc7b3c37ef6678830ccc4866dcca2ab6ecaf2228186ea6f8",
+        "state": "714c247c94f8c12ddc7b3c37ef6678830ccc4866dcca2ab6ecaf2228186ea6f8",
+        "ind": 21001
+      },
+      "pars_diseases_sir_p_death": {
+        "seed": 16109857765935308424,
+        "trace": "pars_diseases_sir_p_death",
+        "root": "af2f9e568ec0148264d96a88d2f16da3c7af90d7542de370142e63f725edbd26",
+        "state": "af2f9e568ec0148264d96a88d2f16da3c7af90d7542de370142e63f725edbd26",
+        "ind": 21001
+      },
+      "networks_randomnet_dist": {
+        "seed": 16109857766024474232,
+        "trace": "networks_randomnet_dist",
+        "root": "cefdfa34c9723fb64ecf0955af10a98e66d59b47b29929896f53e90fa82c4c9c",
+        "state": "cefdfa34c9723fb64ecf0955af10a98e66d59b47b29929896f53e90fa82c4c9c",
+        "ind": 21001
+      },
+      "diseases_sir_trans_rng_dists_0": {
+        "seed": 16109857766126357848,
+        "trace": "diseases_sir_trans_rng_dists_0",
+        "root": "225d9cd5e28fe793470c24780d8a9c825a7ddebcf3aa9b2419a3ec97cccf3f9c",
+        "state": "225d9cd5e28fe793470c24780d8a9c825a7ddebcf3aa9b2419a3ec97cccf3f9c",
+        "ind": 21002
+      },
+      "diseases_sir_trans_rng_dists_1": {
+        "seed": 16109857765613688019,
+        "trace": "diseases_sir_trans_rng_dists_1",
+        "root": "41553b853fc5c03181a5fc1b3c595d855a9e058496bd711a762189398ceb8e67",
+        "state": "41553b853fc5c03181a5fc1b3c595d855a9e058496bd711a762189398ceb8e67",
+        "ind": 21002
+      },
+      "interventions_campaign_vx_coverage_dist": {
+        "seed": 16109857766192179670,
+        "trace": "interventions_campaign_vx_coverage_dist",
+        "root": "a1d2979766f813f27f6a4a4b685f68c2ba4d58054accab19f731ac505360eae5",
+        "state": "a1d2979766f813f27f6a4a4b685f68c2ba4d58054accab19f731ac505360eae5",
+        "ind": 21000
+      },
+      "people_states_age_default": {
+        "seed": 16109857766260543697,
+        "trace": "people_states_age_default",
+        "root": "b1b0407e3e6baf202faa7de1ecbcc0e66a862d281d55a389d61ef973c0836d65",
+        "state": "b1b0407e3e6baf202faa7de1ecbcc0e66a862d281d55a389d61ef973c0836d65",
+        "ind": 1
+      },
+      "people_states_female_default": {
+        "seed": 16109857766259527875,
+        "trace": "people_states_female_default",
+        "root": "c1bd09ec910ee9e4f82968e12f482e2b4ac00181f0f7572f717332469a6ecf80",
+        "state": "c1bd09ec910ee9e4f82968e12f482e2b4ac00181f0f7572f717332469a6ecf80",
+        "ind": 1
+      }
+    }
+  },
+  {
+    "world": "w0",
+    "rep": 1,
+    "child_seed": 12662251671149728571,
+    "streams": {
+      "pars_networks_randomnet_n_contacts": {
+        "seed": 12662251671621849453,
+        "trace": "pars_networks_randomnet_n_contacts",
+        "root": "203fbc84e5ee3c44ed3396cfb4f2aeb2c4aa2d93d0daf7accf7f4a981aecaba6",
+        "state": "203fbc84e5ee3c44ed3396cfb4f2aeb2c4aa2d93d0daf7accf7f4a981aecaba6",
+        "ind": 21001
+      },
+      "pars_diseases_sir_init_prev": {
+        "seed": 12662251671253219056,
+        "trace": "pars_diseases_sir_init_prev",
+        "root": "cd7ac6fbdbc3c119166a5a570fc6d5495ad5a83da891ad7da8d9fb98e4a50c5c",
+        "state": "cd7ac6fbdbc3c119166a5a570fc6d5495ad5a83da891ad7da8d9fb98e4a50c5c",
+        "ind": 21000
+      },
+      "pars_diseases_sir_dur_inf": {
+        "seed": 12662251671183774568,
+        "trace": "pars_diseases_sir_dur_inf",
+        "root": "2c2165a55228b90fd64044abf5f44bfed7577a66e273604fcd90d3c0cd2e53bf",
+        "state": "2c2165a55228b90fd64044abf5f44bfed7577a66e273604fcd90d3c0cd2e53bf",
+        "ind": 21001
+      },
+      "pars_diseases_sir_p_death": {
+        "seed": 12662251671495834780,
+        "trace": "pars_diseases_sir_p_death",
+        "root": "9a57bb9b9dee04f7d7eb44e89ff0af1c52fe1cd879f800b15716384f28fd4131",
+        "state": "9a57bb9b9dee04f7d7eb44e89ff0af1c52fe1cd879f800b15716384f28fd4131",
+        "ind": 21001
+      },
+      "networks_randomnet_dist": {
+        "seed": 12662251671585000588,
+        "trace": "networks_randomnet_dist",
+        "root": "2bccb50ef609be7c55bfab30fc4a81e9dedc0c079c198acc619060a25cdf804a",
+        "state": "2bccb50ef609be7c55bfab30fc4a81e9dedc0c079c198acc619060a25cdf804a",
+        "ind": 21001
+      },
+      "diseases_sir_trans_rng_dists_0": {
+        "seed": 12662251671686884204,
+        "trace": "diseases_sir_trans_rng_dists_0",
+        "root": "45d72e582d3ec50cbf264c6a2210ad76f64f163a0604023f5d17f01ea5df4b60",
+        "state": "45d72e582d3ec50cbf264c6a2210ad76f64f163a0604023f5d17f01ea5df4b60",
+        "ind": 21002
+      },
+      "diseases_sir_trans_rng_dists_1": {
+        "seed": 12662251671174214375,
+        "trace": "diseases_sir_trans_rng_dists_1",
+        "root": "bcac5289518a364880fa78e3ccf8e4c754ae19bc1260763a976ede9fd3f77dbc",
+        "state": "bcac5289518a364880fa78e3ccf8e4c754ae19bc1260763a976ede9fd3f77dbc",
+        "ind": 21002
+      },
+      "interventions_campaign_vx_coverage_dist": {
+        "seed": 12662251671752706026,
+        "trace": "interventions_campaign_vx_coverage_dist",
+        "root": "85e6406381fb9463aa411651b8435acb2855d40653663ed7884d03f2069e0551",
+        "state": "85e6406381fb9463aa411651b8435acb2855d40653663ed7884d03f2069e0551",
+        "ind": 21000
+      },
+      "people_states_age_default": {
+        "seed": 12662251671821070053,
+        "trace": "people_states_age_default",
+        "root": "f6d11585a67135f692218f0d406e1b1b66e52050c8dd00d68ca0085554cae93c",
+        "state": "f6d11585a67135f692218f0d406e1b1b66e52050c8dd00d68ca0085554cae93c",
+        "ind": 1
+      },
+      "people_states_female_default": {
+        "seed": 12662251671820054231,
+        "trace": "people_states_female_default",
+        "root": "d17ea717c07da8ef679fd5b40688bce9d7620082427cc80519e3568f3dee0e61",
+        "state": "d17ea717c07da8ef679fd5b40688bce9d7620082427cc80519e3568f3dee0e61",
+        "ind": 1
+      }
+    }
+  },
+  {
+    "world": "w1",
+    "rep": 0,
+    "child_seed": 14501630053907722270,
+    "streams": {
+      "pars_networks_randomnet_n_contacts": {
+        "seed": 14501630054379843152,
+        "trace": "pars_networks_randomnet_n_contacts",
+        "root": "8d0d8d71d3d719721e5fac8711e810319b2b3f3d8208a5a6ca7559942e24c406",
+        "state": "8d0d8d71d3d719721e5fac8711e810319b2b3f3d8208a5a6ca7559942e24c406",
+        "ind": 21001
+      },
+      "pars_diseases_sir_init_prev": {
+        "seed": 14501630054011212755,
+        "trace": "pars_diseases_sir_init_prev",
+        "root": "66c6181f5d22023e4bb64afb46275254c3cc079cdda8a69e75cdeba351ec2a16",
+        "state": "66c6181f5d22023e4bb64afb46275254c3cc079cdda8a69e75cdeba351ec2a16",
+        "ind": 21000
+      },
+      "pars_diseases_sir_dur_inf": {
+        "seed": 14501630053941768267,
+        "trace": "pars_diseases_sir_dur_inf",
+        "root": "de6719fe757da0a6ced21333e0f7c825c3b096e3c53f45908ad8f00fa4850442",
+        "state": "de6719fe757da0a6ced21333e0f7c825c3b096e3c53f45908ad8f00fa4850442",
+        "ind": 21001
+      },
+      "pars_diseases_sir_p_death": {
+        "seed": 14501630054253828479,
+        "trace": "pars_diseases_sir_p_death",
+        "root": "4e20993aaaf3bf5a31025aaab21057fe3e1594040a1c91bd6dc2eaa8806e04e0",
+        "state": "4e20993aaaf3bf5a31025aaab21057fe3e1594040a1c91bd6dc2eaa8806e04e0",
+        "ind": 21001
+      },
+      "networks_randomnet_dist": {
+        "seed": 14501630054342994287,
+        "trace": "networks_randomnet_dist",
+        "root": "48b6d74b33304fadebfc1ac894a7909ed8fbdb8e6cd9e97408231a518c56421a",
+        "state": "48b6d74b33304fadebfc1ac894a7909ed8fbdb8e6cd9e97408231a518c56421a",
+        "ind": 21001
+      },
+      "diseases_sir_trans_rng_dists_0": {
+        "seed": 14501630054444877903,
+        "trace": "diseases_sir_trans_rng_dists_0",
+        "root": "3aa29ddba57b51d8c1192db8e4714a48a867e154b89cb116bcb35f5674059f60",
+        "state": "3aa29ddba57b51d8c1192db8e4714a48a867e154b89cb116bcb35f5674059f60",
+        "ind": 21002
+      },
+      "diseases_sir_trans_rng_dists_1": {
+        "seed": 14501630053932208074,
+        "trace": "diseases_sir_trans_rng_dists_1",
+        "root": "3fd45ed7763187d016bf6c0d8891819bd5aafb97decd65a8efa57aed9bb765b8",
+        "state": "3fd45ed7763187d016bf6c0d8891819bd5aafb97decd65a8efa57aed9bb765b8",
+        "ind": 21002
+      },
+      "interventions_campaign_vx_coverage_dist": {
+        "seed": 14501630054510699725,
+        "trace": "interventions_campaign_vx_coverage_dist",
+        "root": "c62a7b230f974225eb8550aa9b4f74ae4253a42cf9c66446eec71658fb2c1d89",
+        "state": "c62a7b230f974225eb8550aa9b4f74ae4253a42cf9c66446eec71658fb2c1d89",
+        "ind": 21000
+      },
+      "people_states_age_default": {
+        "seed": 14501630054579063752,
+        "trace": "people_states_age_default",
+        "root": "6cd1cdf52f08b4c4f0f063d7a26f14b2b561a20a0db7cf7de4e371d0c7519798",
+        "state": "6cd1cdf52f08b4c4f0f063d7a26f14b2b561a20a0db7cf7de4e371d0c7519798",
+        "ind": 1
+      },
+      "people_states_female_default": {
+        "seed": 14501630054578047930,
+        "trace": "people_states_female_default",
+        "root": "33d899e3182eada516dd96a9228db66e7bb5ee3770674c6ad51d79e1cf8bbd9e",
+        "state": "33d899e3182eada516dd96a9228db66e7bb5ee3770674c6ad51d79e1cf8bbd9e",
+        "ind": 1
+      }
+    }
+  },
+  {
+    "world": "w1",
+    "rep": 1,
+    "child_seed": 4949157122596199643,
+    "streams": {
+      "pars_networks_randomnet_n_contacts": {
+        "seed": 4949157123068320525,
+        "trace": "pars_networks_randomnet_n_contacts",
+        "root": "c026de2f442309c4965bd48692420cc63fdff5a05c42535014b1a7a015e9545f",
+        "state": "c026de2f442309c4965bd48692420cc63fdff5a05c42535014b1a7a015e9545f",
+        "ind": 21001
+      },
+      "pars_diseases_sir_init_prev": {
+        "seed": 4949157122699690128,
+        "trace": "pars_diseases_sir_init_prev",
+        "root": "7ee2daf4b54f0c23d7d3d28fa2d18d2abb380e89ef06e1e5922cdca751f671f9",
+        "state": "7ee2daf4b54f0c23d7d3d28fa2d18d2abb380e89ef06e1e5922cdca751f671f9",
+        "ind": 21000
+      },
+      "pars_diseases_sir_dur_inf": {
+        "seed": 4949157122630245640,
+        "trace": "pars_diseases_sir_dur_inf",
+        "root": "f1564faea316dcef41b346b4f7882aa2c0646e07fa953528c9a3dca1362ab201",
+        "state": "f1564faea316dcef41b346b4f7882aa2c0646e07fa953528c9a3dca1362ab201",
+        "ind": 21001
+      },
+      "pars_diseases_sir_p_death": {
+        "seed": 4949157122942305852,
+        "trace": "pars_diseases_sir_p_death",
+        "root": "d24a215d9b9254d913cab8fdb02b765d4e599e9bb22c2a8464dc1f69c0075bf0",
+        "state": "d24a215d9b9254d913cab8fdb02b765d4e599e9bb22c2a8464dc1f69c0075bf0",
+        "ind": 21001
+      },
+      "networks_randomnet_dist": {
+        "seed": 4949157123031471660,
+        "trace": "networks_randomnet_dist",
+        "root": "c0f1ef0a9d22ea5cc201ce3749492b588cc674006536fbbff068228c7fa48d17",
+        "state": "c0f1ef0a9d22ea5cc201ce3749492b588cc674006536fbbff068228c7fa48d17",
+        "ind": 21001
+      },
+      "diseases_sir_trans_rng_dists_0": {
+        "seed": 4949157123133355276,
+        "trace": "diseases_sir_trans_rng_dists_0",
+        "root": "d8c1105a91b859155c7dd1934d54f6b36b94c52031ee63e6b065220aeb9071cf",
+        "state": "d8c1105a91b859155c7dd1934d54f6b36b94c52031ee63e6b065220aeb9071cf",
+        "ind": 21002
+      },
+      "diseases_sir_trans_rng_dists_1": {
+        "seed": 4949157122620685447,
+        "trace": "diseases_sir_trans_rng_dists_1",
+        "root": "2f31df359cdd5b78ef09518b63bfc87eb681edebe76f70de081e064e2cb9ee00",
+        "state": "2f31df359cdd5b78ef09518b63bfc87eb681edebe76f70de081e064e2cb9ee00",
+        "ind": 21002
+      },
+      "interventions_campaign_vx_coverage_dist": {
+        "seed": 4949157123199177098,
+        "trace": "interventions_campaign_vx_coverage_dist",
+        "root": "33210a7c4287f1ed92026b520f567261d82c9eaf3203339f0d1a3bc45a583d51",
+        "state": "33210a7c4287f1ed92026b520f567261d82c9eaf3203339f0d1a3bc45a583d51",
+        "ind": 21000
+      },
+      "people_states_age_default": {
+        "seed": 4949157123267541125,
+        "trace": "people_states_age_default",
+        "root": "44056454b988c9f3875da657232686d4a0dcd2e4c893288941c1f274daf5af43",
+        "state": "44056454b988c9f3875da657232686d4a0dcd2e4c893288941c1f274daf5af43",
+        "ind": 1
+      },
+      "people_states_female_default": {
+        "seed": 4949157123266525303,
+        "trace": "people_states_female_default",
+        "root": "0abd5666379493ded5fc2d21cc380ccc916b4267a072a16a717137c1d2bec11b",
+        "state": "0abd5666379493ded5fc2d21cc380ccc916b4267a072a16a717137c1d2bec11b",
+        "ind": 1
+      }
+    }
+  },
+  {
+    "world": "w2",
+    "rep": 0,
+    "child_seed": 747451734462146527,
+    "streams": {
+      "pars_networks_randomnet_n_contacts": {
+        "seed": 747451734934267409,
+        "trace": "pars_networks_randomnet_n_contacts",
+        "root": "fc87ad426ece69ec1cd65301ae944931306f7537cbcc0349ff24cd3c6a4b46bd",
+        "state": "fc87ad426ece69ec1cd65301ae944931306f7537cbcc0349ff24cd3c6a4b46bd",
+        "ind": 21001
+      },
+      "pars_diseases_sir_init_prev": {
+        "seed": 747451734565637012,
+        "trace": "pars_diseases_sir_init_prev",
+        "root": "bf92c9be8a2e52709f20c2a5f363e72c9151f0681ab3ff85e11b9b6f78f0a332",
+        "state": "bf92c9be8a2e52709f20c2a5f363e72c9151f0681ab3ff85e11b9b6f78f0a332",
+        "ind": 21000
+      },
+      "pars_diseases_sir_dur_inf": {
+        "seed": 747451734496192524,
+        "trace": "pars_diseases_sir_dur_inf",
+        "root": "2c7e5003399db41c54c84bc8bf18268cfa8a8fda0324e1a786bad8ab68d71bea",
+        "state": "2c7e5003399db41c54c84bc8bf18268cfa8a8fda0324e1a786bad8ab68d71bea",
+        "ind": 21001
+      },
+      "pars_diseases_sir_p_death": {
+        "seed": 747451734808252736,
+        "trace": "pars_diseases_sir_p_death",
+        "root": "4c8d686aee8017fd4b437c26395931deb752345bfc20b7167d821be1c7c9c540",
+        "state": "4c8d686aee8017fd4b437c26395931deb752345bfc20b7167d821be1c7c9c540",
+        "ind": 21001
+      },
+      "networks_randomnet_dist": {
+        "seed": 747451734897418544,
+        "trace": "networks_randomnet_dist",
+        "root": "5c13c9a01e9619599b835a287e0c773d299b26b12aeac516de3d5ae78956bcf0",
+        "state": "5c13c9a01e9619599b835a287e0c773d299b26b12aeac516de3d5ae78956bcf0",
+        "ind": 21001
+      },
+      "diseases_sir_trans_rng_dists_0": {
+        "seed": 747451734999302160,
+        "trace": "diseases_sir_trans_rng_dists_0",
+        "root": "b83674849c814ca1a79a763f10ece5e54366d32272b9721d0210d724897277f2",
+        "state": "b83674849c814ca1a79a763f10ece5e54366d32272b9721d0210d724897277f2",
+        "ind": 21002
+      },
+      "diseases_sir_trans_rng_dists_1": {
+        "seed": 747451734486632331,
+        "trace": "diseases_sir_trans_rng_dists_1",
+        "root": "c5d4df861802f9bef22d81ab0edc3b56ea177df2c7708b71525f512989143a85",
+        "state": "c5d4df861802f9bef22d81ab0edc3b56ea177df2c7708b71525f512989143a85",
+        "ind": 21002
+      },
+      "interventions_campaign_vx_coverage_dist": {
+        "seed": 747451735065123982,
+        "trace": "interventions_campaign_vx_coverage_dist",
+        "root": "982342bfad08de5b75ab77d1afce121004b5baa355211b4a11b1dc7a6c19739e",
+        "state": "982342bfad08de5b75ab77d1afce121004b5baa355211b4a11b1dc7a6c19739e",
+        "ind": 21000
+      },
+      "people_states_age_default": {
+        "seed": 747451735133488009,
+        "trace": "people_states_age_default",
+        "root": "8b19b7fd73390ce4af288319011a9e9d8c99d66ad71d5ce2f56237d22bf5ad51",
+        "state": "8b19b7fd73390ce4af288319011a9e9d8c99d66ad71d5ce2f56237d22bf5ad51",
+        "ind": 1
+      },
+      "people_states_female_default": {
+        "seed": 747451735132472187,
+        "trace": "people_states_female_default",
+        "root": "c8b2ea129ddab8a276751a1ef551b2d2acffd469803d0c60d0b0e5bca95f04d6",
+        "state": "c8b2ea129ddab8a276751a1ef551b2d2acffd469803d0c60d0b0e5bca95f04d6",
+        "ind": 1
+      }
+    }
+  },
+  {
+    "world": "w2",
+    "rep": 1,
+    "child_seed": 14227986315252966548,
+    "streams": {
+      "pars_networks_randomnet_n_contacts": {
+        "seed": 14227986315725087430,
+        "trace": "pars_networks_randomnet_n_contacts",
+        "root": "36acd97298027e4fa021f10523dc73b3e39667ad0f66e18f68e6fa4071e114b3",
+        "state": "36acd97298027e4fa021f10523dc73b3e39667ad0f66e18f68e6fa4071e114b3",
+        "ind": 21001
+      },
+      "pars_diseases_sir_init_prev": {
+        "seed": 14227986315356457033,
+        "trace": "pars_diseases_sir_init_prev",
+        "root": "ba089b631eed11ef3fc42d2a0db7d9c24a5c1c93961a62307f4f67374e9c71d6",
+        "state": "ba089b631eed11ef3fc42d2a0db7d9c24a5c1c93961a62307f4f67374e9c71d6",
+        "ind": 21000
+      },
+      "pars_diseases_sir_dur_inf": {
+        "seed": 14227986315287012545,
+        "trace": "pars_diseases_sir_dur_inf",
+        "root": "beaeea88a9b89f1c5de80416d94877d8626543c3e5f8285b60b5e846515e6412",
+        "state": "beaeea88a9b89f1c5de80416d94877d8626543c3e5f8285b60b5e846515e6412",
+        "ind": 21001
+      },
+      "pars_diseases_sir_p_death": {
+        "seed": 14227986315599072757,
+        "trace": "pars_diseases_sir_p_death",
+        "root": "40b5dfb4e1dfc4d3dce23e73d3104be0d08635f136a3df1c800a4fa6bc4d26c4",
+        "state": "40b5dfb4e1dfc4d3dce23e73d3104be0d08635f136a3df1c800a4fa6bc4d26c4",
+        "ind": 21001
+      },
+      "networks_randomnet_dist": {
+        "seed": 14227986315688238565,
+        "trace": "networks_randomnet_dist",
+        "root": "865ba1053a459c3b77007e0495e8b8f38151fb873ae89d72a34d9dffe8e0c96b",
+        "state": "865ba1053a459c3b77007e0495e8b8f38151fb873ae89d72a34d9dffe8e0c96b",
+        "ind": 21001
+      },
+      "diseases_sir_trans_rng_dists_0": {
+        "seed": 14227986315790122181,
+        "trace": "diseases_sir_trans_rng_dists_0",
+        "root": "6a997b8a2a6c091931c3153cde6aae721cc64aa98bad14f8580ca80082763b8e",
+        "state": "6a997b8a2a6c091931c3153cde6aae721cc64aa98bad14f8580ca80082763b8e",
+        "ind": 21002
+      },
+      "diseases_sir_trans_rng_dists_1": {
+        "seed": 14227986315277452352,
+        "trace": "diseases_sir_trans_rng_dists_1",
+        "root": "7d66839525b280d3fdf43100238de29e922b2e663222d918cd0d9881d0cbb632",
+        "state": "7d66839525b280d3fdf43100238de29e922b2e663222d918cd0d9881d0cbb632",
+        "ind": 21002
+      },
+      "interventions_campaign_vx_coverage_dist": {
+        "seed": 14227986315855944003,
+        "trace": "interventions_campaign_vx_coverage_dist",
+        "root": "0c840552a163a7cf2883a280914ede6802cbfaf23474289bb777d3869a5d5630",
+        "state": "0c840552a163a7cf2883a280914ede6802cbfaf23474289bb777d3869a5d5630",
+        "ind": 21000
+      },
+      "people_states_age_default": {
+        "seed": 14227986315924308030,
+        "trace": "people_states_age_default",
+        "root": "7735b443dfa0e5e4ffb0756e68fc46a335766607af3d7f8978f056b43d3be877",
+        "state": "7735b443dfa0e5e4ffb0756e68fc46a335766607af3d7f8978f056b43d3be877",
+        "ind": 1
+      },
+      "people_states_female_default": {
+        "seed": 14227986315923292208,
+        "trace": "people_states_female_default",
+        "root": "b6850fd25858531a89ee1fe32213d928e699d9dc0fca52283f4266f5fddf5429",
+        "state": "b6850fd25858531a89ee1fe32213d928e699d9dc0fca52283f4266f5fddf5429",
+        "ind": 1
+      }
+    }
+  },
+  {
+    "world": "w3",
+    "rep": 0,
+    "child_seed": 6211794295995696749,
+    "streams": {
+      "pars_networks_randomnet_n_contacts": {
+        "seed": 6211794296467817631,
+        "trace": "pars_networks_randomnet_n_contacts",
+        "root": "6101015d394221f238c1aebe1bce2348ef4c4854955a2df2f03fb4c0953846a5",
+        "state": "6101015d394221f238c1aebe1bce2348ef4c4854955a2df2f03fb4c0953846a5",
+        "ind": 21001
+      },
+      "pars_diseases_sir_init_prev": {
+        "seed": 6211794296099187234,
+        "trace": "pars_diseases_sir_init_prev",
+        "root": "e646ea500eb5a89a404cb752cf398cc88dab6c573f7b187acfbf5b4dff609e8c",
+        "state": "e646ea500eb5a89a404cb752cf398cc88dab6c573f7b187acfbf5b4dff609e8c",
+        "ind": 21000
+      },
+      "pars_diseases_sir_dur_inf": {
+        "seed": 6211794296029742746,
+        "trace": "pars_diseases_sir_dur_inf",
+        "root": "833fd9da62bf5ce232c675dd49124a3043b6d23eff1a7fc02da828476798ab66",
+        "state": "833fd9da62bf5ce232c675dd49124a3043b6d23eff1a7fc02da828476798ab66",
+        "ind": 21001
+      },
+      "pars_diseases_sir_p_death": {
+        "seed": 6211794296341802958,
+        "trace": "pars_diseases_sir_p_death",
+        "root": "9331acca694b810f4583570b01b61b8096100651b10a9dfed290a4e9c7fb74b1",
+        "state": "9331acca694b810f4583570b01b61b8096100651b10a9dfed290a4e9c7fb74b1",
+        "ind": 21001
+      },
+      "networks_randomnet_dist": {
+        "seed": 6211794296430968766,
+        "trace": "networks_randomnet_dist",
+        "root": "bcd543582cb98e723c1c1ae3e8865e88cd60880b1fec0cfc78a75e5c84a9a42c",
+        "state": "bcd543582cb98e723c1c1ae3e8865e88cd60880b1fec0cfc78a75e5c84a9a42c",
+        "ind": 21001
+      },
+      "diseases_sir_trans_rng_dists_0": {
+        "seed": 6211794296532852382,
+        "trace": "diseases_sir_trans_rng_dists_0",
+        "root": "96c747751190b532b0ab9f0092aeac12d71afa96e5c7799df4b22f2368208ec6",
+        "state": "96c747751190b532b0ab9f0092aeac12d71afa96e5c7799df4b22f2368208ec6",
+        "ind": 21002
+      },
+      "diseases_sir_trans_rng_dists_1": {
+        "seed": 6211794296020182553,
+        "trace": "diseases_sir_trans_rng_dists_1",
+        "root": "07606080b49aaa927ce9af23c448d4255168431baa14f08b3bc530dabe5d4f84",
+        "state": "07606080b49aaa927ce9af23c448d4255168431baa14f08b3bc530dabe5d4f84",
+        "ind": 21002
+      },
+      "interventions_campaign_vx_coverage_dist": {
+        "seed": 6211794296598674204,
+        "trace": "interventions_campaign_vx_coverage_dist",
+        "root": "7b31bb1ebab9da512e1ce82a721f81f19cb4b67224d570f33f4dd3ce95c81659",
+        "state": "7b31bb1ebab9da512e1ce82a721f81f19cb4b67224d570f33f4dd3ce95c81659",
+        "ind": 21000
+      },
+      "people_states_age_default": {
+        "seed": 6211794296667038231,
+        "trace": "people_states_age_default",
+        "root": "aeaf34d0ca01ff94afae9979101a4c01b8f2f28dbf16ba6382a41f1c626f378b",
+        "state": "aeaf34d0ca01ff94afae9979101a4c01b8f2f28dbf16ba6382a41f1c626f378b",
+        "ind": 1
+      },
+      "people_states_female_default": {
+        "seed": 6211794296666022409,
+        "trace": "people_states_female_default",
+        "root": "00baf4e63cbd24e83e2cecc2cbbc47b82a6d992081713bf77c113913f71da7f2",
+        "state": "00baf4e63cbd24e83e2cecc2cbbc47b82a6d992081713bf77c113913f71da7f2",
+        "ind": 1
+      }
+    }
+  },
+  {
+    "world": "w3",
+    "rep": 1,
+    "child_seed": 8540515410746707887,
+    "streams": {
+      "pars_networks_randomnet_n_contacts": {
+        "seed": 8540515411218828769,
+        "trace": "pars_networks_randomnet_n_contacts",
+        "root": "956198df31b1691550878e40951670ba9de129aebd20dc1068ce1837920e94f8",
+        "state": "956198df31b1691550878e40951670ba9de129aebd20dc1068ce1837920e94f8",
+        "ind": 21001
+      },
+      "pars_diseases_sir_init_prev": {
+        "seed": 8540515410850198372,
+        "trace": "pars_diseases_sir_init_prev",
+        "root": "e6b18685fe6caf0826e0bef3276b3c8ec2ad447008dd75d9f48b2d7db0c1b01c",
+        "state": "e6b18685fe6caf0826e0bef3276b3c8ec2ad447008dd75d9f48b2d7db0c1b01c",
+        "ind": 21000
+      },
+      "pars_diseases_sir_dur_inf": {
+        "seed": 8540515410780753884,
+        "trace": "pars_diseases_sir_dur_inf",
+        "root": "477a9657517f39e3642641a0c5155eadfe77fce21aa3ce072313aaf5f6f08e5f",
+        "state": "477a9657517f39e3642641a0c5155eadfe77fce21aa3ce072313aaf5f6f08e5f",
+        "ind": 21001
+      },
+      "pars_diseases_sir_p_death": {
+        "seed": 8540515411092814096,
+        "trace": "pars_diseases_sir_p_death",
+        "root": "15d2a81251d15159a04c4603feac097437b508060da6244a51180007d4b04433",
+        "state": "15d2a81251d15159a04c4603feac097437b508060da6244a51180007d4b04433",
+        "ind": 21001
+      },
+      "networks_randomnet_dist": {
+        "seed": 8540515411181979904,
+        "trace": "networks_randomnet_dist",
+        "root": "785ffb2f226dc797ace8ea9c3375c71e64cb45a760094ec7be57069f330111c1",
+        "state": "785ffb2f226dc797ace8ea9c3375c71e64cb45a760094ec7be57069f330111c1",
+        "ind": 21001
+      },
+      "diseases_sir_trans_rng_dists_0": {
+        "seed": 8540515411283863520,
+        "trace": "diseases_sir_trans_rng_dists_0",
+        "root": "41603add310f874d15195bc1eb5b48447ed22505ab8f58129e61df3361f3589d",
+        "state": "41603add310f874d15195bc1eb5b48447ed22505ab8f58129e61df3361f3589d",
+        "ind": 21002
+      },
+      "diseases_sir_trans_rng_dists_1": {
+        "seed": 8540515410771193691,
+        "trace": "diseases_sir_trans_rng_dists_1",
+        "root": "02c259461a2b14a337eb560004d50e1aaefa6b2d40f00c9040df8087e320a3e8",
+        "state": "02c259461a2b14a337eb560004d50e1aaefa6b2d40f00c9040df8087e320a3e8",
+        "ind": 21002
+      },
+      "interventions_campaign_vx_coverage_dist": {
+        "seed": 8540515411349685342,
+        "trace": "interventions_campaign_vx_coverage_dist",
+        "root": "c7361cb869814f7e970c88a9c83b9838e1e474cdc37ab2806b96a11adc42a08e",
+        "state": "c7361cb869814f7e970c88a9c83b9838e1e474cdc37ab2806b96a11adc42a08e",
+        "ind": 21000
+      },
+      "people_states_age_default": {
+        "seed": 8540515411418049369,
+        "trace": "people_states_age_default",
+        "root": "2bfeb18915b2957a2f3c6f56acdfddb4300fdb75a8f7e5c5570aef446a622592",
+        "state": "2bfeb18915b2957a2f3c6f56acdfddb4300fdb75a8f7e5c5570aef446a622592",
+        "ind": 1
+      },
+      "people_states_female_default": {
+        "seed": 8540515411417033547,
+        "trace": "people_states_female_default",
+        "root": "bb97188479e142c190b6094236b0edc937890fc675ef003837a25d0c5d03571b",
+        "state": "bb97188479e142c190b6094236b0edc937890fc675ef003837a25d0c5d03571b",
+        "ind": 1
+      }
+    }
+  }
+]

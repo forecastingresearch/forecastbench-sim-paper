@@ -1,0 +1,15 @@
+{
+  "world": {
+    "world_id": "w3",
+    "beta": 0.065,
+    "r0": 3.9000000000000004,
+    "seed": 47,
+    "c20": 3994,
+    "n_matched": 290,
+    "report": "PANDEMIC WORLD REPORT \u2014 Day 20\n\nOne isolated region, Riverton: 5,000 people, no travel in or out.\nDisease model: SIR (susceptible -> infectious -> recovered; no deaths). Infected people are infectious for 10 days on average, then recover with permanent immunity. Each person has about 6 contacts per day. The simulation is agent-based and stochastic.\n  Transmission probability per contact per day 0.065 (basic reproduction number R0 \u2248 3.9); 17 people infectious at day 0.\n\nObserved cumulative infections at the end of each day (people ever infected, including those infectious at day 0):\n  Riverton: d0:22 -> d5:141 -> d10:659 -> d15:2186 -> d20:3994   (day 20: 3389 currently infectious)",
+    "intervention": "Riverton will run a vaccination campaign on day 21 (95% efficacy, 90% coverage): on day 21, 90% of Riverton's population is vaccinated, and vaccination reduces a vaccinated person's probability of infection per exposure by 95%."
+  },
+  "rep": 1,
+  "cov": 0.9,
+  "label": "worker w3"
+}

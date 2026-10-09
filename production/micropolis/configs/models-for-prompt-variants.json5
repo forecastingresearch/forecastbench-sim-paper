@@ -1,0 +1,13 @@
+// Model set shared by the prompt-*.json5 configs, in provider/name form.
+[
+  "openai/gpt-4.1-nano",
+  "openai/gpt-4.1-mini",
+  "anthropic/claude-haiku-4.5",
+  "google/gemini-3.1-flash-lite-preview",
+  "openai/gpt-5-nano",
+  "openai/gpt-5.6-luna",
+  "google/gemini-3.7-flash",
+  "openai/gpt-5.6-sol",
+  "anthropic/claude-opus-5",
+//  "anthropic/claude-fable-5" // disabling for now, doesn't seem to add much differentiaon vs opus-5 and is quite expensive
+]
