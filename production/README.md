@@ -6,7 +6,7 @@ Every file is a byte-for-byte copy of what ran; [PROVENANCE.json](PROVENANCE.jso
 
 ## Starsim
 
-1. **Simulator.** `forecastingresearch/forecastbench-sim` at `65204aa59cfb9fa835cf5b2af8917e02e98a4f26` (branch `refactor/monorepo`) plus [pandemic-runner-p_death.patch](starsim/pandemic-runner-p_death.patch). The patch was an uncommitted change in production: it adds the `p_death` argument the paper's no-death worlds pass. Public `main` lacks it. The patched `runner.py` hashes to `b921742a…`, the value the frozen fixed-state plan records.
+1. **Simulator.** `forecastingresearch/forecastbench-sim` at tag `paper-starsim-producer` (`65204aa59cfb9fa835cf5b2af8917e02e98a4f26`) plus [pandemic-runner-p_death.patch](starsim/pandemic-runner-p_death.patch). The patch was an uncommitted change in production: it adds the `p_death` argument the paper's no-death worlds pass. Public `main` lacks it. The patched `runner.py` hashes to `b921742a…`, the value the frozen fixed-state plan records.
 2. **Worlds and forecasts.** [starsim/iclr-2026](starsim/iclr-2026) is the producer layout from `forecastingresearch/iclr-2026` (private; code unchanged since `3f55a91`, 16 Sep 2026). Put `forecastbench-sim` beside it, as `pyproject.toml` expects.
    - Worlds: `starsim_single/mine_single.py` (continuous, headline) and `starsim_causal/mine_worlds.py` / `mine_dose.py` (binary, appendix). Mined worlds are in `results/causal/data/worlds/` and `starsim_causal/worlds*.json`.
    - Forecasts: `results/causal/rerun_lowest/run_all.sh` is the paper's run (per-model lowest reasoning effort, three repetitions). It needs `OPENROUTER_API_KEY`. The model roster is `results/causal/data/models.csv`.
